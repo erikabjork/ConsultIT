@@ -24,23 +24,28 @@ def example_search_return_number_of_hits(query):
 
 
 
-def example_search_loop_through_hits(query):
+def example_search_loop_through_hits(querystr):
     # limit = 100 is the max number of hits that can be returned.
     # If there are more (which you find with ['total']['value'] in the json response)
     # you have to use offset and multiple requests to get all ads.
-    search_params = {'q': query, 'limit': 100}
+    search_params = {'q': querystr, 'limit': 100}
     json_response = _get_ads(search_params)
     hits = json_response['hits']
     #print(hits)
+    word = "2017"
     for hit in hits:
-        print(f"{hit['headline']}")
+            headline = hit['headline']
+            pub = hit['publication_date']
+            if word in pub:
+            #print(f"{hit['headline']}")
+                print(headline)
         #st.write(f"{['headline']}, {['year']['name']}")
-        st.write(f"{hit['publication_date']}, {hit['headline']}")
+                st.write(f"{hit['publication_date']}, {hit['headline']}")
         #st.write(f"{hit['headline']}")
 
 
 if __name__ == '__main__':
     query = st.text_input("Skriv något här: ")
-    query1 = str(query)
-    example_search_loop_through_hits(query1)
-    example_search_return_number_of_hits(query1)
+    querystr = str(query)
+    example_search_loop_through_hits(querystr)
+    example_search_return_number_of_hits(querystr)
