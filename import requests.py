@@ -1,19 +1,7 @@
-import streamlit as st
-
-st.title("Title")
-st.write("Text")
-
-st.write("Hej")
-st.write("Test2")
-st.write("hallå")
-st.write('häst')
-number = st.slider("Pick a number", 0, 100)
-
-
 import requests
 import json
 
-url = 'https://historical.api.jobtechdev.se'
+url = 'https://jobsearch.api.jobtechdev.se'
 url_for_search = f"{url}/search"
 
 
@@ -30,8 +18,6 @@ def example_search_return_number_of_hits(query):
     json_response = _get_ads(search_params)
     number_of_hits = json_response['total']['value']
     print(f"\nNumber of hits = {number_of_hits}")
-    st.write(number_of_hits)
-
 
 
 def example_search_loop_through_hits(query):
@@ -41,16 +27,11 @@ def example_search_loop_through_hits(query):
     search_params = {'q': query, 'limit': 100}
     json_response = _get_ads(search_params)
     hits = json_response['hits']
-    #print(hits)
     for hit in hits:
-        print(f"{hit['headline']}")
-        #st.write(f"{['headline']}, {['year']['name']}")
-        st.write(f"{hit['publication_date']}, {hit['headline']}")
-        #st.write(f"{hit['headline']}")
+        print(f"{hit['headline']}, {hit['employer']['name']}")
 
 
 if __name__ == '__main__':
-    query = st.text_input("Skriv något här: ")
-    query1 = str(query)
-    example_search_loop_through_hits(query1)
-    example_search_return_number_of_hits(query1)
+    query = '"projektledare"'
+    example_search_loop_through_hits(query)
+    example_search_return_number_of_hits(query)
