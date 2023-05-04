@@ -66,3 +66,41 @@ with st.sidebar:
         "nav-link-selected": {"background-color": "#0090EA"},
     }
     )
+import streamlit as st
+
+#from streamlit_image_coordinates import streamlit_image_coordinates
+
+#value = streamlit_image_coordinates("")
+
+
+#st.write(value)
+
+
+
+col1,col2,col3 = st.columns(3)
+with col1:
+   st.button("Data1")
+
+  
+
+with col2:
+   st.button("Data2")
+   
+   
+
+with col3:
+   st.button("Data 3")
+  
+import streamlit as st
+
+
+
+# Increase the size of the button using custom CSS styles
+button_style = """
+    height: 100px;
+    width: 200px;
+    font-size: 20px;
+"""
+st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_style, unsafe_allow_html=True)
+
+
