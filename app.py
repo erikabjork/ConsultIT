@@ -54,7 +54,15 @@ if __name__ == '__main__':
 import streamlit as st
 from streamlit_option_menu import option_menu
 
+
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Systemvetenskap", 'Om ConsultIT', 'Om datasetet'], 
-        icons=['book', 'gear'], menu_icon="cast", default_index=1)
-    selected
+    choose = option_menu("ConsultIT", ["Systemvetenskap", "Om ConsultIT", "Om datasetet", "Kontakt"],
+                         icons=['book', 'app-indicator', 'gear', 'telephone'],
+                         menu_icon="app-indicator", default_index=0,
+                         styles={
+        "container": {"padding": "5!important", "background-color": "#fafafa"},
+        "icon": {"color": "black", "font-size": "25px"}, 
+        "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+        "nav-link-selected": {"background-color": "#0090EA"},
+    }
+    )
