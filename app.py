@@ -51,10 +51,10 @@ if __name__ == '__main__':
     example_search_return_number_of_hits(querystr)
 
 
-
+import streamlit as st
 from streamlit_option_menu import option_menu
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Settings'], 
-        icons=['house', 'gear'], menu_icon="cast", default_index=1)
+    selected = option_menu("Main Menu", ["Systemvetenskap", 'Om ConsultIT', 'Om datasetet'], 
+        icons=['book', 'gear'], menu_icon="cast", default_index=1)
     selected
