@@ -64,7 +64,7 @@ from streamlit_option_menu import option_menu
 
 
 with st.sidebar:
-    choose = option_menu("ConsultIT", ["Systemvetenskap", "Om ConsultIT", "Om datasetet", "Kontakt"],
+    choose = option_menu("ConsultIT", ["Beskrivning", "Om ConsultIT", "Om datasetet", "Kontakt"],
                          icons=['book', 'app-indicator', 'gear', 'telephone'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
@@ -72,9 +72,37 @@ with st.sidebar:
         "icon": {"color": "black", "font-size": "25px"}, 
         "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
         "nav-link-selected": {"background-color": "#0090EA"},
+        
+    
     }
     )
+    if choose == 'Beskrivning':
+        st.write('Applikationen visar vad som kortsiktigt efterfrågas på arbetsmarknaden och utifrån det är tanken att kunna anpassa valbara kurser på det systemvetenskapliga programmet.')
+    elif choose == 'Om ConsultIT':
+        st.write('Vi är ett konsultföretag som hjälper blablablabla')
+    elif choose== 'Om datasetet':
+        st.write ('Detta dataset är hämtat från JobTech och visar historiska jobbannonser blablablabla.')
+    elif choose == 'Kontakt':
+        st.write('Kontakta oss på consultIT@outlook.com')
 
+# Create a beta container for the search box
+search_container = st.container()
+
+# Add a search box to the container
+search_query = search_container.text_input('Search', value='', key='search')
+
+# Add some CSS styling to position the search box in the top right corner
+search_container.markdown("""
+    <style>
+        .st-bq {
+            position: fixed;
+            top: 300;
+            right: 500;
+            margin: 10px;
+            z-index: 999;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 import streamlit as st
 
@@ -105,15 +133,15 @@ st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % 
 
 def page1():
     
-    st.title("Page 1")
-    st.write("This is Page 1")
-    query = st.text_input("Skriv något här: ")
+    st.title(" ")
+    st.write("Presenterad data:")
+   # query = st.text_input("Skriv något här: ")
       
-    querystr = str(query)
+    #querystr = str(query)
 
     
-    example_search_loop_through_hits(querystr)
-    example_search_return_number_of_hits(querystr)
+    #example_search_loop_through_hits(querystr)
+    #example_search_return_number_of_hits(querystr)
     col1,col2,col3 = st.columns(3)
     with col1:
         st.button("Data1")
@@ -127,7 +155,7 @@ def page1():
 
     with col3:
         st.button("Data 3")
-    if st.button("Go to Page 2"):
+    if st.button("View trend"):
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
     
@@ -138,11 +166,18 @@ def page1():
    
 
 def page2():
-    st.title("Page 2")
-    st.write("This is Page 2")
-    if st.button("Go to Page 1"):
+    st.title("LineChart")
+    if st.button("Back"):
         st.session_state.current_page = "page1"
         st.session_state.current_file = "app.py"
+        import pandas as pd
+import streamlit as st
+from matplotlib import pyplot as plt
+
+
+
+
+
         
 
 if "current_page" not in st.session_state:
