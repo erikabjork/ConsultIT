@@ -21,6 +21,7 @@ def example_search_return_number_of_hits(query):
     number_of_hits = json_response['total']['value']
     print(f"\nNumber of hits = {number_of_hits}")
     st.write(number_of_hits)
+    
 
 
 
@@ -31,6 +32,7 @@ def example_search_loop_through_hits(querystr):
     search_params = {'q': querystr, 'limit': 100}
     json_response = _get_ads(search_params)
     hits = json_response['hits']
+    
     #print(hits)
     word = "2017"
     for hit in hits:
@@ -44,11 +46,17 @@ def example_search_loop_through_hits(querystr):
         #st.write(f"{hit['headline']}")
 
 
-if __name__ == '__main__':
-    query = st.text_input("Skriv något här: ")
-    querystr = str(query)
-    example_search_loop_through_hits(querystr)
-    example_search_return_number_of_hits(querystr)
+
+
+#if __name__ == '__main__':
+
+    #query = st.text_input("Skriv något här: ")
+      
+    #querystr = str(query)
+
+    
+    #example_search_loop_through_hits(querystr)
+    #example_search_return_number_of_hits(querystr)
 
 
 import streamlit as st
@@ -66,6 +74,8 @@ with st.sidebar:
         "nav-link-selected": {"background-color": "#0090EA"},
     }
     )
+
+
 import streamlit as st
 
 #from streamlit_image_coordinates import streamlit_image_coordinates
@@ -76,20 +86,6 @@ import streamlit as st
 #st.write(value)
 
 
-
-col1,col2,col3 = st.columns(3)
-with col1:
-   st.button("Data1")
-
-  
-
-with col2:
-   st.button("Data2")
-   
-   
-
-with col3:
-   st.button("Data 3")
   
 import streamlit as st
 
@@ -104,3 +100,56 @@ button_style = """
 st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_style, unsafe_allow_html=True)
 
 
+
+
+
+def page1():
+    
+    st.title("Page 1")
+    st.write("This is Page 1")
+    query = st.text_input("Skriv något här: ")
+      
+    querystr = str(query)
+
+    
+    example_search_loop_through_hits(querystr)
+    example_search_return_number_of_hits(querystr)
+    col1,col2,col3 = st.columns(3)
+    with col1:
+        st.button("Data1")
+
+  
+
+    with col2:
+        st.button("Data2")
+   
+   
+
+    with col3:
+        st.button("Data 3")
+    if st.button("Go to Page 2"):
+        st.session_state.current_page = "page2"
+        st.session_state.current_file = "page2.py"
+    
+
+
+   
+
+   
+
+def page2():
+    st.title("Page 2")
+    st.write("This is Page 2")
+    if st.button("Go to Page 1"):
+        st.session_state.current_page = "page1"
+        st.session_state.current_file = "app.py"
+        
+
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "page1"
+    
+
+if st.session_state.current_page == "page1":
+    page1()
+elif st.session_state.current_page == "page2":
+    page2()
