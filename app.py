@@ -95,14 +95,37 @@ search_query = search_container.text_input('Search', value='', key='search')
 search_container.markdown("""
     <style>
         .st-bq {
-            position: fixed;
+            position: none;
             top: 300;
             right: 500;
             margin: 10px;
             z-index: 999;
+            border: #0090EA;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 5px;
+            transition: border-color 0.3s ease-in-out;
+
+        }
+          .st-bq:hover {
+            border-color: #0090EA;
+        }
+        
+        .st-bq:active {
+            border-color:#0090EA;
         }
     </style>
 """, unsafe_allow_html=True)
+
+search_container_styles_active = '''
+    border-color: 2px solid #0090EA;
+    '''
+search_container_styles_hover = '''
+    border-color: 2px solid #0090EA;
+    '''
+st.write("<style>div.row-widget.stsearch_container > search_container:first-child:active { %s }</style>" % search_container_styles_active, unsafe_allow_html=True)
+st.write("<style>div.row-widget.stsearch_container > search_container:first-child:hover { %s }</style>" % search_container_styles_hover, unsafe_allow_html=True)
+
 
 import streamlit as st
 
@@ -120,16 +143,36 @@ import streamlit as st
 
 
 # Increase the size of the button using custom CSS styles
-button_style = """
+button_styles = f'''
     height: 100px;
     width: 200px;
     font-size: 20px;
-"""
-st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_style, unsafe_allow_html=True)
+    color:black;
+    border: 2px solid black;
+    transition: border-color 0.3s ease-in-out;
+       
 
 
+    '''
+button_clicked_styles = f'''
+    height: 100px;
+    width: 200px;
+    font-size: 20px;
+    color:white;
+    background-color: white;
+    border: #0090EA;
+'''
 
+button_styles_hover = '''
+    border: 2px solid #0090EA;
+    '''
+button_styles_active = '''
+    background-color: white;
+    '''
 
+st.write("<style>div.row-widget.stButton > button:first-child:hover { %s }</style>" % button_styles_hover, unsafe_allow_html=True)
+st.write("<style>div.row-widget.stButton > button:first-child:active{ %s }</style>" % button_styles_active, unsafe_allow_html=True)
+st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_styles, unsafe_allow_html=True)
 
 def page1():
     
@@ -145,20 +188,25 @@ def page1():
     col1,col2,col3 = st.columns(3)
     with col1:
         st.button("Data1")
-
-  
+        
 
     with col2:
         st.button("Data2")
-   
-   
+        
 
     with col3:
         st.button("Data 3")
+        
+
     if st.button("View trend"):
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
+      
+
     
+
+import numpy as np
+import altair as alt
 
 
    
@@ -166,6 +214,7 @@ def page1():
    
 
 def page2():
+    
     st.title("LineChart")
     if st.button("Back"):
         st.session_state.current_page = "page1"
