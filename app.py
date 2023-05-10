@@ -197,8 +197,18 @@ def page1():
     with col3:
         st.button("Data 3")
         
+    
+  
+    st.markdown(
+    """
+    <div style='border-bottom:2px solid #ccc'>
+        <h1 style='text-align:left; padding:10px; font-size: 20px; '>Emergent technologies</h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-    if st.button("View trend"):
+    if st.button("se trend"):
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
       
