@@ -7,6 +7,7 @@ url = 'https://historical.api.jobtechdev.se'
 url_for_search = f"{url}/search"
 
 
+
 def _get_ads(params):
     headers = {'accept': 'application/json'}
     response = requests.get(url_for_search, headers=headers, params=params)
@@ -63,28 +64,55 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 
-with st.sidebar:
-    choose = option_menu("ConsultIT", ["Beskrivning", "Om ConsultIT", "Om datasetet", "Kontakt"],
-                         icons=['book', 'app-indicator', 'gear', 'telephone'],
-                         menu_icon="app-indicator", default_index=0,
-                         styles={
-        "container": {"padding": "5!important", "background-color": "#fafafa"},
-        "icon": {"color": "black", "font-size": "25px"}, 
-        "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "#0090EA"},
-        
-    
-    }
-    )
-    if choose == 'Beskrivning':
-        st.write('Applikationen visar vad som kortsiktigt efterfrågas på arbetsmarknaden och utifrån det är tanken att kunna anpassa valbara kurser på det systemvetenskapliga programmet.')
-    elif choose == 'Om ConsultIT':
-        st.write('Vi är ett konsultföretag som hjälper blablablabla')
-    elif choose== 'Om datasetet':
-        st.write ('Detta dataset är hämtat från JobTech och visar historiska jobbannonser blablablabla.')
-    elif choose == 'Kontakt':
-        st.write('Kontakta oss på consultIT@outlook.com')
+def main():
+    # Add the logo image
+       # Add the logo
+    logo_path = "https://www.akademiskahogtider.se/digitalAssets/818/c_818170-l_3-k_lo_gu_cen2r294c.png"
+    #logo = st.image(logo_path, use_column_width=False)
+    logo = f'<img src="{logo_path}" style="position: none; top: 10px; left: 10px; width: 100px; margin-left:30%; margin-top:-30%;">'
+    st.sidebar.markdown(logo, unsafe_allow_html=True)
 
+    # Rest of your code...
+    with st.sidebar:
+        choose = option_menu("ConsultIT", ["Beskrivning", "Om ConsultIT", "Om datasetet", "Kontakt"],
+                             icons=['book', 'app-indicator', 'gear', 'telephone'],
+                             menu_icon="app-indicator", default_index=0,
+                             styles={
+                                 "container": {"padding": "5!important", "background-color": "#fafafa"},
+                                 "icon": {"color": "black", "font-size": "25px"},
+                                 "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px",
+                                              "--hover-color": "#eee"},
+                                 "nav-link-selected": {"background-color": "#0090EA"},
+                             })
+
+        if choose == 'Beskrivning':
+            st.markdown("<hr>", unsafe_allow_html=True)
+            st.write('Applikationen visar vad som kortsiktigt efterfrågas på arbetsmarknaden och utifrån det är tanken att kunna anpassa valbara kurser på det systemvetenskapliga programmet.')
+            st.markdown("<hr>", unsafe_allow_html=True)
+        elif choose == 'Om ConsultIT':
+            st.markdown("<hr>", unsafe_allow_html=True)
+            st.write('Vi är ett konsultföretag som hjälper blablablabla')
+            st.markdown("<hr>", unsafe_allow_html=True)
+        elif choose == 'Om datasetet':
+            st.markdown("<hr>", unsafe_allow_html=True)
+            st.write('Detta dataset är hämtat från JobTech och visar historiska jobbannonser blablablabla.')
+            st.markdown("<hr>", unsafe_allow_html=True)
+        elif choose == 'Kontakt':
+            st.markdown("<hr>", unsafe_allow_html=True)
+            st.write('Kontakta oss på consultIT@outlook.com')
+            st.markdown("<hr>", unsafe_allow_html=True)
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+
+
+
+
+    
 # Create a beta container for the search box
 search_container = st.container()
 
@@ -174,6 +202,9 @@ st.write("<style>div.row-widget.stButton > button:first-child:hover { %s }</styl
 st.write("<style>div.row-widget.stButton > button:first-child:active{ %s }</style>" % button_styles_active, unsafe_allow_html=True)
 st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_styles, unsafe_allow_html=True)
 
+
+
+
 def page1():
     
     st.title(" ")
@@ -198,23 +229,82 @@ def page1():
         st.button("Data 3")
         
     
-  
+
+
+
+    
+      
     st.markdown(
     """
-    <div style='border-bottom:2px solid #ccc'>
-        <h1 style='text-align:left; padding:10px; font-size: 20px; '>Emergent technologies</h1>
-    </div>
+    <style>
+    .custom-button {
+        display: inline-block;
+        background-color: #0090EA;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        font-size: 13px;
+        text-align: center;
+        cursor: pointer;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+    st.markdown(
+    """
+    <style>
+    .small-header {
+        font-size: 20px;
+    }
+    </style>
     """,
     unsafe_allow_html=True
 )
 
-    if st.button("se trend"):
+    col7, col8, col9 = st.columns(3)
+
+    with col7:
+        st.markdown("<h2 class='small-header'>Emergent Technologies</h2>", unsafe_allow_html=True)
+        st.text("Java")
+        st.markdown("<hr>", unsafe_allow_html=True)
+        st.text("Cloud")
+        st.markdown("<hr>", unsafe_allow_html=True)
+        st.text("Python")
+        st.markdown("<hr>", unsafe_allow_html=True)
+
+
+    with col8:
+        st.markdown("<h2 class='small-header'>Aktiva annonser</h2>", unsafe_allow_html=True)
+        st.text("800")
+        st.markdown("<hr>", unsafe_allow_html=True)
+        st.text("641")
+        st.markdown("<hr>", unsafe_allow_html=True)
+        st.text("234")
+        st.markdown("<hr>", unsafe_allow_html=True)
+
+
+    with col9:
+        st.markdown("<h2 class='small-header'>Läs mer</h2>", unsafe_allow_html=True)
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:3px 5px;'>Om Java</a>"
+        st.markdown(link, unsafe_allow_html=True)
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
-      
+            #st.session_state.current_page = "page2"
+            #st.session_state.current_file = "page2.py"
 
-    
+        st.markdown("<hr style='margin-top: 1.7rem;'>", unsafe_allow_html=True)
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:3px 5px;'>Om Cloud</a>"
+        st.markdown(link, unsafe_allow_html=True)
+        st.session_state.current_page = "page2"
+        st.session_state.current_file = "page2.py"
 
+        st.markdown("<hr style='margin-top: 1.7rem;'>", unsafe_allow_html=True)
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:3px 5px;'>Om Python</a>"
+        st.markdown(link, unsafe_allow_html=True)
+        st.session_state.current_page = "page2"
+        st.session_state.current_file = "page2.py"
+        st.markdown("<hr style='margin-top: 1.7rem;'>", unsafe_allow_html=True)
 import numpy as np
 import altair as alt
 
