@@ -69,18 +69,18 @@ def main():
        # Add the logo
     logo_path = "https://www.akademiskahogtider.se/digitalAssets/818/c_818170-l_3-k_lo_gu_cen2r294c.png"
     #logo = st.image(logo_path, use_column_width=False)
-    logo = f'<img src="{logo_path}" style="position: none; top: 10px; left: 10px; width: 100px; margin-left:30%; margin-top:-30%;">'
+    logo = f'<img src="{logo_path}" style="position: none; top: 10px; left: 10px; width: 100px; margin-left:32%; margin-top:-30%;">'
     st.sidebar.markdown(logo, unsafe_allow_html=True)
 
     # Rest of your code...
     with st.sidebar:
-        choose = option_menu("ConsultIT", ["Beskrivning", "Om ConsultIT", "Om datasetet", "Kontakt"],
+        choose = option_menu(" ‎ ‎ ‎Systemvetenskap", ["Beskrivning", "Om ConsultIT", "Om datasetet", "Kontakt"],
                              icons=['book', 'app-indicator', 'gear', 'telephone'],
-                             menu_icon="app-indicator", default_index=0,
+                             menu_icon="none", default_index=0,
                              styles={
                                  "container": {"padding": "5!important", "background-color": "#fafafa"},
-                                 "icon": {"color": "black", "font-size": "25px"},
-                                 "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px",
+                                 "icon": {"color": "black", "font-size": "20px"},
+                                 "nav-link": {"font-size": "13px", "text-align": "left", "margin": "0px",
                                               "--hover-color": "#eee"},
                                  "nav-link-selected": {"background-color": "#0090EA"},
                              })
@@ -202,31 +202,36 @@ st.write("<style>div.row-widget.stButton > button:first-child:hover { %s }</styl
 st.write("<style>div.row-widget.stButton > button:first-child:active{ %s }</style>" % button_styles_active, unsafe_allow_html=True)
 st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_styles, unsafe_allow_html=True)
 
+import subprocess
 
 
-
-def page1():
-    
-    st.title(" ")
-    st.write("Presenterad data:")
+def main():    
    # query = st.text_input("Skriv något här: ")
-      
+    clicked = True
     #querystr = str(query)
-
-    
     #example_search_loop_through_hits(querystr)
     #example_search_return_number_of_hits(querystr)
     col1,col2,col3 = st.columns(3)
     with col1:
-        st.button("Data1")
-        
+        if st.button("Data1"):
+            col2.empty()
+            page2()
+            st.stop()
 
     with col2:
-        st.button("Data2")
+        if st.button("Data2") and clicked:
+            clicked = False
+            col2.empty()
+            page2()
+            st.stop()
+
         
 
     with col3:
-        st.button("Data 3")
+        if st.button("Data3"):
+            col3.empty()
+            page2()
+            st.stop()
         
     
 
@@ -238,7 +243,6 @@ def page1():
     """
     <style>
     .custom-button {
-        display: inline-block;
         background-color: #0090EA;
         color: white;
         border: none;
@@ -255,65 +259,68 @@ def page1():
     """
     <style>
     .small-header {
-        font-size: 20px;
+        font-size: 16px;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
+
     col7, col8, col9 = st.columns(3)
 
     with col7:
         st.markdown("<h2 class='small-header'>Emergent Technologies</h2>", unsafe_allow_html=True)
         st.text("Java")
-        st.markdown("<hr>", unsafe_allow_html=True)
         st.text("Cloud")
-        st.markdown("<hr>", unsafe_allow_html=True)
         st.text("Python")
-        st.markdown("<hr>", unsafe_allow_html=True)
+
 
 
     with col8:
         st.markdown("<h2 class='small-header'>Aktiva annonser</h2>", unsafe_allow_html=True)
         st.text("800")
-        st.markdown("<hr>", unsafe_allow_html=True)
         st.text("641")
-        st.markdown("<hr>", unsafe_allow_html=True)
         st.text("234")
-        st.markdown("<hr>", unsafe_allow_html=True)
 
 
     with col9:
         st.markdown("<h2 class='small-header'>Läs mer</h2>", unsafe_allow_html=True)
-        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:3px 5px;'>Om Java</a>"
+
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:0.1rem 0.2rem;'>Om Java</a>"
         st.markdown(link, unsafe_allow_html=True)
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
             #st.session_state.current_page = "page2"
             #st.session_state.current_file = "page2.py"
 
-        st.markdown("<hr style='margin-top: 1.7rem;'>", unsafe_allow_html=True)
-        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:3px 5px;'>Om Cloud</a>"
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:0.1rem 0.2rem;'>Om Cloud</a>"
         st.markdown(link, unsafe_allow_html=True)
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
 
-        st.markdown("<hr style='margin-top: 1.7rem;'>", unsafe_allow_html=True)
-        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:3px 5px;'>Om Python</a>"
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:0.1rem 0.2rem;'>Om Python</a>"
         st.markdown(link, unsafe_allow_html=True)
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
-        st.markdown("<hr style='margin-top: 1.7rem;'>", unsafe_allow_html=True)
+
+
 import numpy as np
 import altair as alt
 
+should_execute_main = True
+
 
    
-
-   
-
 def page2():
+    subprocess.Popen(["streamlit", "run", "page2.py"], shell=True)
+    st.title("LineChart")
+    if st.button("Back"):
+        st.session_state.current_page = "page1"
+        st.session_state.current_file = "app.py"
+   
+
+def page5():
     
     st.title("LineChart")
     if st.button("Back"):
@@ -323,17 +330,13 @@ def page2():
 import streamlit as st
 from matplotlib import pyplot as plt
 
+def page3():
+    st.write("Hej!")
+
 
 
 
 
         
 
-if "current_page" not in st.session_state:
-    st.session_state.current_page = "page1"
-    
-
-if st.session_state.current_page == "page1":
-    page1()
-elif st.session_state.current_page == "page2":
-    page2()
+main()
