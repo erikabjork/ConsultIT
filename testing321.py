@@ -30,7 +30,7 @@ def example_search_return_number_of_hits(query):
     return number_of_hits_current, number_of_hits_historical
 
 # Skapar lista med kompetenser. Vi ska självklart lägga till fler men detta är bara för testing. 
-competencies = ['python', 'java', 'C++', 'MongoDB']
+competencies = ['blockchain', 'big data', 'artificial intelligence', 'cybersecurity']
 
 if __name__ == '__main__':
     results = {}
@@ -41,10 +41,10 @@ if __name__ == '__main__':
         results[query] = (number_of_hits_current, number_of_hits_historical)
     
     # Detta går att gör snyggare men hittade ingen annat sätt. Känns som att vi kommer behöva automatisera det. 
-    python_current, python_historical = results['python']
-    java_current, java_historical = results['java']
-    cplusplus_current, cplusplus_historical = results['C++']
-    mongodb_current, mongodb_historical = results['MongoDB']
+    python_current, python_historical = results['blockchain']
+    java_current, java_historical = results['big data']
+    cplusplus_current, cplusplus_historical = results['artificial intelligence']
+    mongodb_current, mongodb_historical = results['cybersecurity']
 
 
 #Testar om variablerna fungerar. 
