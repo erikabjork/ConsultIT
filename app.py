@@ -53,11 +53,11 @@ def example_search_loop_through_hits(querystr):
 
     #query = st.text_input("Skriv något här: ")
       
-    #querystr = str(query)
+   # querystr = str(query)
 
     
     #example_search_loop_through_hits(querystr)
-    #example_search_return_number_of_hits(querystr)
+   # example_search_return_number_of_hits(querystr)
 
 
 import streamlit as st
@@ -117,20 +117,26 @@ if __name__ == '__main__':
 search_container = st.container()
 
 # Add a search box to the container
-search_query = search_container.text_input('Search', value='', key='search')
+search_query = search_container.text_input('Search', value='', key='search' )
+
+
 
 # Add some CSS styling to position the search box in the top right corner
 search_container.markdown("""
     <style>
         .st-bq {
-            position: none;
-            top: 300;
-            right: 500;
+            position: absolute;
+            top: 500;
+            right: 10px;
             margin: 10px;
             z-index: 999;
             border: #0090EA;
             border: 2px solid black;
             border-radius: 10px;
+             max-width: 300px;
+            width: 100%;
+            padding: 0.25rem;
+            font-size: 14px;
             padding: 5px;
             transition: border-color 0.3s ease-in-out;
 
@@ -279,6 +285,10 @@ def main():
         st.text("Cloud")
         st.text("Python")
         
+
+
+               
+        
         
 
 
@@ -333,8 +343,8 @@ def page5():
         st.session_state.current_page = "page1"
         st.session_state.current_file = "app.py"
         import pandas as pd
-import streamlit as st
-from matplotlib import pyplot as plt
+#import streamlit as st
+#from matplotlib import pyplot as plt
 
 def page3():
     st.write("Hej!")
