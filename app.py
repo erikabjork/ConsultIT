@@ -204,6 +204,8 @@ st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % 
 
 import subprocess
 
+import pandas as pd
+
 
 def main():    
    # query = st.text_input("Skriv något här: ")
@@ -217,6 +219,8 @@ def main():
             col2.empty()
             page2()
             st.stop()
+            
+            
 
     with col2:
         if st.button("Data2") and clicked:
@@ -274,6 +278,8 @@ def main():
         st.text("Java")
         st.text("Cloud")
         st.text("Python")
+        
+        
 
 
 
@@ -340,3 +346,4 @@ def page3():
         
 
 main()
+
