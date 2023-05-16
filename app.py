@@ -275,15 +275,51 @@ def main():
     """,
     unsafe_allow_html=True
 )
+#import requests
+#competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
+#for compenetcy in competencies:
+    #st.write(compenetcy)
+
 
 
     col7, col8, col9 = st.columns(3)
+  
+
+
 
     with col7:
         st.markdown("<h2 class='small-header'>Emergent Technologies</h2>", unsafe_allow_html=True)
-        st.text("Java")
-        st.text("Cloud")
-        st.text("Python")
+        st.text('Artificial intelligence')
+        st.text('Machine learning')
+        st.text('Deep learning')
+        st.text('Natural language processing')
+        st.text('Computer vision')
+        st.text('Robotics')
+        st.text("Internet of Things")
+        st.text('Blockchain technology')
+        st.text('Augmented reality')
+        st.text('Virtual reality')
+        st.text('Quantum computing')
+        st.text('Big data analytics')
+        st.text('Cloud computing')
+        st.text('Edge computing')
+        st.text('Cybersecurity technologies')
+        st.text('Autonomous vehicles')
+        st.text('Genetic engineering')
+        st.text('3D printing/additive manufacturing')
+        st.text('Advanced materials science')
+        st.text('Renewable energy technologies')
+        st.text('Smart grids')
+        st.text('Biometrics')
+        st.text('Wearable technologies')
+        st.text('Nanotechnology')
+        st.text('Cognitive computing')
+        st.text('Swarm intelligence')
+        st.text('Synthetic biology')
+        st.text('Human-computer interaction')
+        st.text('Data visualization')
+        st.text('Analytics tools')
+
         
 
 

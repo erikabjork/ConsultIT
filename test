@@ -1,0 +1,28 @@
+import requests
+import streamlit as st
+competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
+
+
+API_ENDPOINT = 'https://historical.api.jobtechdev.se'
+
+# Make a request to the API to retrieve competency data
+response = requests.get(API_ENDPOINT)
+data = response.json()
+
+# Extract the competencies from the API response
+competencies = data['competencies']
+
+# Count the occurrences of each competency
+competency_counts = {}
+for competency in competencies:
+    if competency in competency_counts:
+        competency_counts[competency] += 1
+    else:
+        competency_counts[competency] = 1
+
+# Sort the competencies based on the count in descending order
+sorted_competencies = sorted(competency_counts, key=competency_counts.get, reverse=True)
+
+st.write("List of Competencies (Sorted by Popularity):")
+for competency in sorted_competencies:
+    st.write("- " + competency)
