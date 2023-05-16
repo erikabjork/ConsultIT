@@ -8,6 +8,7 @@ url_for_search = f"{url}/search"
 
 
 
+
 def _get_ads(params):
     headers = {'accept': 'application/json'}
     response = requests.get(url_for_search, headers=headers, params=params)
@@ -212,8 +213,15 @@ import subprocess
 
 import pandas as pd
 
+def main():
+    current_page = st.session_state.get("current_page", "page1")
 
-def main():    
+    if current_page == "page1":
+        page1()
+    elif current_page == "page2":
+        page2()
+        
+def page1():    
    # query = st.text_input("Skriv något här: ")
     clicked = True
     #querystr = str(query)
@@ -221,29 +229,30 @@ def main():
     #example_search_return_number_of_hits(querystr)
     col1,col2,col3 = st.columns(3)
     with col1:
-        if st.button("Data1"):
-            col2.empty()
+        if st.button('Artificial intelligence'):
+          
             page2()
+            col1.empty()
             st.stop()
             
             
 
     with col2:
-        if st.button("Data2") and clicked:
-            clicked = False
-            col2.empty()
+        if st.button("Machine learning"):
             page2()
+            col2.empty()
             st.stop()
 
         
 
     with col3:
-        if st.button("Data3"):
-            col3.empty()
+        if st.button('Deep learning'):
             page2()
+            col3.empty()
             st.stop()
         
-    
+  
+  
 
 
 
@@ -288,10 +297,8 @@ def main():
 
 
     with col7:
+        
         st.markdown("<h2 class='small-header'>Emergent Technologies</h2>", unsafe_allow_html=True)
-        st.text('Artificial intelligence')
-        st.text('Machine learning')
-        st.text('Deep learning')
         st.text('Natural language processing')
         st.text('Computer vision')
         st.text('Robotics')
@@ -361,8 +368,8 @@ def main():
 
 
     with col9:
-        st.markdown("<h2 class='small-header'>Läs mer</h2>", unsafe_allow_html=True)
 
+        st.markdown("<h2 class='small-header'>Läs mer</h2>", unsafe_allow_html=True)
         link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:0.1rem 0.2rem;'>Om Java</a>"
         st.markdown(link, unsafe_allow_html=True)
         st.session_state.current_page = "page2"
@@ -394,6 +401,10 @@ def page2():
     if st.button("Back"):
         st.session_state.current_page = "page1"
         st.session_state.current_file = "app.py"
+
+
+
+
    
 
 def page5():
@@ -411,9 +422,6 @@ def page3():
 
 
 
-
-
         
 
 main()
-
