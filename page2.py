@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import matplotlib as mpl
 
 # JobTech Historical API base URL
 BASE_URL = "https://dev-historical-api.jobtechdev.se"
@@ -20,20 +21,39 @@ def display_job_ads(job_ads):
         st.write("No job ads found for the specified query and year.")
     else:
         st.write(f"Total job ads found: {job_ads['total']['value']}")
-        for ad in job_ads["hits"]:
-            st.write(f"Publication date: {ad['publication_date']}")
-            st.write(f"Headline: {ad['headline']}")
-            st.write(f"Matched text: {ad['description']}")
-            st.write("---")
+        return job_ads['total']['value']
 
 # Streamlit app
 def main():
     st.title("Job Ads Explorer")
     query = st.text_input("Enter a query (e.g., python)", max_chars=100)
-    year = st.number_input("Enter a year", min_value=2016, max_value=2022, step=1)
     if st.button("Search"):
-        job_ads = fetch_job_ads(query, year)
-        display_job_ads(job_ads)
+        hits_by_year = {}
+        for y in range(2016, 2023):
+            job_ads = fetch_job_ads(query, y)
+            hits_by_year[y] = display_job_ads(job_ads)
+        
+        st.write("Hits by Year:")
+        for year, hits in hits_by_year.items():
+            st.write(f"{year}: {hits}")
+        st.write(hits_by_year)
+
+emergent_tech = [
+        "Artificial intelligence",
+        "Machine learning",
+        "Deep learning",
+        "Natural language processing",
+        "Computer vision",
+        "Robotics",
+        "Internet of Things",
+        "Blockchain technology",
+        "Augmented reality",
+        "Virtual reality",
+        "Quantum computing",
+        "Big data analytics",
+        "Cloud computing",
+        "Edge computing",
+        "Cybersecurity technologies"]
 
 if __name__ == "__main__":
     main()
