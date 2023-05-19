@@ -87,7 +87,8 @@ def plot_linear_regression(x, y, items):
 
 # Streamlit app
 def main():
-    st.title("Job Ads Explorer")
+    print("Hej")
+    '''st.title("Job Ads Explorer")
     query = ['cloud', 'artificiell intelligens', 'big data', 'iot']
     if st.button("Search"):
         for items in query:
@@ -104,7 +105,8 @@ def main():
             x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
             y = np.array(list(hits_by_year.values()))
             fig = plot_linear_regression(x, y, items)
-            st.pyplot(fig)
+            st.pyplot(fig)'''
+    
 
 if __name__ == "__main__":
     main()
@@ -271,10 +273,10 @@ def page1():
                 "<div style='width: 20%; margin-left:5%;'>"
                 "<h2 class='small-header'>{}</h2>"
                 "</div>"
-                "<div style='width: 10%; margin-left:20%;'>"
+                "<div style='width: 30%; margin-left:15%;'>"
                 "<h2 class='small-header'>{}</h2>"
                 "</div>"
-                "</div>".format("Emergent Technology", "Aktiva annonser", "Läs mer"),
+                "</div>".format("Emergent Technology", "Aktiva annonser", "Läs mer och se trend"),
                 unsafe_allow_html=True)
 
     for technology in sorted_technologies:
