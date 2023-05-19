@@ -167,19 +167,22 @@ def menu():
                              })
 
         if choose == 'Beskrivning':
+            st.session_state.current_page = "page1"
             st.markdown("<hr>", unsafe_allow_html=True)
             st.write('Applikationen visar vad som kortsiktigt efterfrågas på arbetsmarknaden och utifrån det är tanken att kunna anpassa valbara kurser på det systemvetenskapliga programmet.')
             st.markdown("<hr>", unsafe_allow_html=True)
-
         elif choose == 'Om ConsultIT':
+            st.session_state.current_page = "page1"
             st.markdown("<hr>", unsafe_allow_html=True)
             st.write('Vi är ett konsultföretag som hjälper blablablabla')
             st.markdown("<hr>", unsafe_allow_html=True)
         elif choose == 'Om datasetet':
+            st.session_state.current_page = "page1"
             st.markdown("<hr>", unsafe_allow_html=True)
             st.write('Detta dataset är hämtat från JobTech och visar historiska jobbannonser blablablabla.')
             st.markdown("<hr>", unsafe_allow_html=True)
         elif choose == 'Kontakt':
+            st.session_state.current_page = "page1"
             st.markdown("<hr>", unsafe_allow_html=True)
             st.write('Kontakta oss på consultIT@outlook.com')
             st.markdown("<hr>", unsafe_allow_html=True)
@@ -217,8 +220,7 @@ st.write("<style>div.row-widget.stButton > button:first-child:active{ %s }</styl
 st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_styles, unsafe_allow_html=True)
 
 def main_2():
-    current_page = st.session_state.get("current_page", "page1",)
-
+    current_page = st.session_state.get("current_page", "page1")
     if current_page == "page1":
         page1()
         
@@ -226,14 +228,13 @@ def main_2():
         page2()
 
 def page1():    
-    #clicked = True
+    clicked = True
     #querystr = str(query)
     #example_search_loop_through_hits(querystr)
     #example_search_return_number_of_hits(querystr)
     col1,col2,col3 = st.columns(3)
     with col1:
         if st.button('Artificial intelligence'):
-          
             page2()
             col1.empty()
             st.stop()
@@ -281,7 +282,7 @@ def page1():
     #st.write(compenetcy)
     col7, col8, col9 = st.columns(3)
     competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
-    #Hej
+
     with col7:
         st.markdown("<h2 class='small-header'>Emergent Technologies</h2>", unsafe_allow_html=True)
         for word in competencies:
