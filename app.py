@@ -88,7 +88,7 @@ def plot_linear_regression(x, y, items):
 # Streamlit app
 def main():
     print("Hej")
-    '''st.title("Job Ads Explorer")
+    st.title("Job Ads Explorer")
     query = ['cloud', 'artificiell intelligens', 'big data', 'iot']
     if st.button("Search"):
         for items in query:
@@ -105,7 +105,7 @@ def main():
             x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
             y = np.array(list(hits_by_year.values()))
             fig = plot_linear_regression(x, y, items)
-            st.pyplot(fig)'''
+            st.pyplot(fig)
     
 
 if __name__ == "__main__":
