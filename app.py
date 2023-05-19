@@ -83,34 +83,14 @@ def plot_linear_regression(x, y, items):
         bbox=dict(boxstyle='round', facecolor='white', edgecolor='white')  # Add a white background to the annotation text
     )
 
-    return plt
+    return plt, x, y, items
 
 # Streamlit app
 def main():
     print("Hej")
-    '''st.title("Job Ads Explorer")
-    query = ['cloud', 'artificiell intelligens', 'big data', 'iot']
-    if st.button("Search"):
-        for items in query:
-            hits_by_year = {}
-            for year in range(2016, 2023):
-                job_ads = fetch_job_ads(items, year)
-                hits = display_job_ads(job_ads)
-                hits_by_year[year] = hits
-
-            #st.write("Hits by Year:")
-            for year, hits in hits_by_year.items():
-                st.write(f"{year}: {hits}")
-
-            x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
-            y = np.array(list(hits_by_year.values()))
-            fig = plot_linear_regression(x, y, items)
-            st.pyplot(fig)'''
-    
 
 if __name__ == "__main__":
     main()
-
 
 #FRONTEND
 def menu():
@@ -301,6 +281,7 @@ def page1():
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
 
+        return technology
 
 
 
@@ -313,4 +294,21 @@ def page2():
     if st.button("Back"):
         st.session_state.current_page = "page1"
         st.session_state.current_file = "app.py"  
+    query = ['cloud', 'artificiell intelligens', 'big data', 'iot']
+    if st.button("Search"):
+        for items in query:
+            hits_by_year = {}
+            for year in range(2016, 2023):
+                job_ads = fetch_job_ads(items, year)
+                hits = display_job_ads(job_ads)
+                hits_by_year[year] = hits
+
+            #st.write("Hits by Year:")
+            for year, hits in hits_by_year.items():
+                st.write(f"{year}: {hits}")
+
+            x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
+            y = np.array(list(hits_by_year.values()))
+            fig = plot_linear_regression(x, y, items)
+            st.pyplot(fig)
 main_2()
