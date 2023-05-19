@@ -281,7 +281,7 @@ def page1():
     #st.write(compenetcy)
     col7, col8, col9 = st.columns(3)
     competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
-  
+    #Hej
     with col7:
         st.markdown("<h2 class='small-header'>Emergent Technologies</h2>", unsafe_allow_html=True)
         for word in competencies:
@@ -340,5 +340,8 @@ def page2():
     st.title("LineChart")
     if st.button("Back"):
         st.session_state.current_page = "page1"
-        st.session_state.current_file = "app.py"  
+        st.session_state.current_file = "app.py"
+
+
+
 main_2()
