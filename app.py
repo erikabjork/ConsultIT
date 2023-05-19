@@ -17,6 +17,10 @@ from sklearn.linear_model import LinearRegression
 # JobTech Historical API base URL
 BASE_URL = "https://dev-historical-api.jobtechdev.se"
 
+#Current Ads
+url = 'https://jobsearch.api.jobtechdev.se'
+url_for_search = f"{url}/search"
+
 def fetch_job_ads(query, year):
     endpoint = f"/search?limit=100&offset=0&q={query}&published-after={year}-01-01T00:00:00&published-before={year}-12-31T00:00:00"
     url = BASE_URL + endpoint
@@ -67,9 +71,53 @@ def plot_linear_regression(x, y, items):
 
     return plt
 
+def _get_ads(params):
+    headers = {'accept': 'application/json'}
+    response = requests.get(url_for_search, headers=headers, params=params)
+    response.raise_for_status()  # check for http errors
+    return json.loads(response.content.decode('utf8'))
 
+def _get_ads2(params2):
+    headers = {'accept': 'application/json'}
+    response = requests.get(url_for_search2, headers=headers, params=params2)
+    response.raise_for_status()  # check for http errors
+    return json.loads(response.content.decode('utf8'))
 
+def example_search_return_number_of_hits(query):
+    # limit: 0 means no ads, just a value of how many ads were found.
+    search_params = {'q': query}
+    json_response = _get_ads(search_params)
+    number_of_hits = json_response['total']['value']
+    #print(f"\nNumber of hits = {number_of_hits}")
+    #st.write("CURRENT")
+    #st.write(number_of_hits)
+    return number_of_hits
 
+def example_search_return_number_of_hits2(query):
+    # limit: 0 means no ads, just a value of how many ads were found.
+    search_params2 = {'q': query}
+    json_response = _get_ads2(search_params2)
+    number_of_hits2 = json_response['total']['value']
+    #print(f"\nNumber of hits = {number_of_hits}")
+    #st.write("HISTORICAL")
+    #st.write(number_of_hits)
+    return number_of_hits2
+
+#def example_search_loop_through_hits(querystr):
+    # limit = 100 is the max number of hits that can be returned.
+    # If there are more (which you find with ['total']['value'] in the json response)
+    # you have to use offset and multiple requests to get all ads.
+    search_params = {'q': querystr}
+    json_response = _get_ads(search_params)
+    hits = json_response['hits']
+    ord = "säljare"
+    lagra = []
+    for hit in hits:
+            headline = hit['headline']
+            if ord in headline:
+                lagra.append(headline)
+                st.write(lagra)
+    print(lagra)
 
 # Streamlit app
 def main():
@@ -229,41 +277,15 @@ def page1():
     unsafe_allow_html=True
 )
 #import requests
-#competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
 #for compenetcy in competencies:
     #st.write(compenetcy)
     col7, col8, col9 = st.columns(3)
+    competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
   
     with col7:
-        
         st.markdown("<h2 class='small-header'>Emergent Technologies</h2>", unsafe_allow_html=True)
-        st.text('Natural language processing')
-        st.text('Computer vision')
-        st.text('Robotics')
-        st.text("Internet of Things")
-        st.text('Blockchain technology')
-        st.text('Augmented reality')
-        st.text('Virtual reality')
-        st.text('Quantum computing')
-        st.text('Big data analytics')
-        st.text('Cloud computing')
-        st.text('Edge computing')
-        st.text('Cybersecurity technologies')
-        st.text('Autonomous vehicles')
-        st.text('Genetic engineering')
-        st.text('3D printing/additive manufacturing')
-        st.text('Advanced materials science')
-        st.text('Renewable energy technologies')
-        st.text('Smart grids')
-        st.text('Biometrics')
-        st.text('Wearable technologies')
-        st.text('Nanotechnology')
-        st.text('Cognitive computing')
-        st.text('Swarm intelligence')
-        st.text('Synthetic biology')
-        st.text('Human-computer interaction')
-        st.text('Data visualization')
-        st.text('Analytics tools')
+        for word in competencies:
+            st.write(word)
 
     with col8:
         st.markdown("<h2 class='small-header'>Aktiva annonser</h2>", unsafe_allow_html=True)
