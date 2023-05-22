@@ -5,16 +5,6 @@ import matplotlib as mpl
 # JobTech Historical API base URL
 BASE_URL = "https://dev-historical-api.jobtechdev.se"
 
-technologies = [
-            'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things',
-            'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing',
-            'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies',
-            'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing',
-            'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics',
-            'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence',
-            'Synthetic biology', 'Human-computer interaction', 'Data visualization', 'Analytics tools'
-        ]
-
 def fetch_job_ads(query, year):
     endpoint = f"/search?limit=100&offset=0&q={query}&published-after={year}-01-01T00:00:00&published-before={year}-12-31T00:00:00"
     url = BASE_URL + endpoint

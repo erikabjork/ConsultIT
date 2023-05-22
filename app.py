@@ -17,6 +17,10 @@ from sklearn.linear_model import LinearRegression
 # JobTech Historical API base URL
 BASE_URL = "https://dev-historical-api.jobtechdev.se"
 
+#Current Ads
+url = 'https://jobsearch.api.jobtechdev.se'
+url_for_search = f"{url}/search"
+
 def fetch_job_ads(query, year):
     endpoint = f"/search?limit=100&offset=0&q={query}&published-after={year}-01-01T00:00:00&published-before={year}-12-31T00:00:00"
     url = BASE_URL + endpoint
@@ -32,24 +36,6 @@ def display_job_ads(job_ads):
         total_hits = job_ads['total']['value']
         #st.write(f"Total job ads found: {total_hits}")
         return total_hits
-    
-current = 'https://jobsearch.api.jobtechdev.se'
-current_search = f"{current}/search"
-
-def get_ads(params):
-    headers = {'accept': 'application/json'}
-    response = requests.get(current_search, headers=headers, params=params)
-    response.raise_for_status()  # check for http errors
-    return json.loads(response.content.decode('utf8'))
-
-def example_search_return_number_of_hits(query):
-    search_params = {'q': query}
-    try:
-        json_response = get_ads(search_params)
-        number_of_hits_current = json_response['total']['value']
-        return number_of_hits_current
-    except (requests.HTTPError, json.JSONDecodeError) as e:
-        print(f"Error retrieving number of hits for '{query}': {str(e)}")
 
 def plot_linear_regression(x, y, items):
     model = LinearRegression().fit(x, y)
@@ -85,9 +71,56 @@ def plot_linear_regression(x, y, items):
 
     return plt
 
+def _get_ads(params):
+    headers = {'accept': 'application/json'}
+    response = requests.get(url_for_search, headers=headers, params=params)
+    response.raise_for_status()  # check for http errors
+    return json.loads(response.content.decode('utf8'))
+
+def _get_ads2(params2):
+    headers = {'accept': 'application/json'}
+    response = requests.get(url_for_search2, headers=headers, params=params2)
+    response.raise_for_status()  # check for http errors
+    return json.loads(response.content.decode('utf8'))
+
+def example_search_return_number_of_hits(query):
+    # limit: 0 means no ads, just a value of how many ads were found.
+    search_params = {'q': query}
+    json_response = _get_ads(search_params)
+    number_of_hits = json_response['total']['value']
+    #print(f"\nNumber of hits = {number_of_hits}")
+    #st.write("CURRENT")
+    #st.write(number_of_hits)
+    return number_of_hits
+
+def example_search_return_number_of_hits2(query):
+    # limit: 0 means no ads, just a value of how many ads were found.
+    search_params2 = {'q': query}
+    json_response = _get_ads2(search_params2)
+    number_of_hits2 = json_response['total']['value']
+    #print(f"\nNumber of hits = {number_of_hits}")
+    #st.write("HISTORICAL")
+    #st.write(number_of_hits)
+    return number_of_hits2
+
+#def example_search_loop_through_hits(querystr):
+    # limit = 100 is the max number of hits that can be returned.
+    # If there are more (which you find with ['total']['value'] in the json response)
+    # you have to use offset and multiple requests to get all ads.
+    search_params = {'q': querystr}
+    json_response = _get_ads(search_params)
+    hits = json_response['hits']
+    ord = "säljare"
+    lagra = []
+    for hit in hits:
+            headline = hit['headline']
+            if ord in headline:
+                lagra.append(headline)
+                st.write(lagra)
+    print(lagra)
+
 # Streamlit app
 def main():
-    print("Hej")
     st.title("Job Ads Explorer")
     query = ['cloud', 'artificiell intelligens', 'big data', 'iot']
     if st.button("Search"):
@@ -106,7 +139,6 @@ def main():
             y = np.array(list(hits_by_year.values()))
             fig = plot_linear_regression(x, y, items)
             st.pyplot(fig)
-    
 
 if __name__ == "__main__":
     main()
@@ -135,19 +167,22 @@ def menu():
                              })
 
         if choose == 'Beskrivning':
+            st.session_state.current_page = "page1"
             st.markdown("<hr>", unsafe_allow_html=True)
             st.write('Applikationen visar vad som kortsiktigt efterfrågas på arbetsmarknaden och utifrån det är tanken att kunna anpassa valbara kurser på det systemvetenskapliga programmet.')
             st.markdown("<hr>", unsafe_allow_html=True)
-
         elif choose == 'Om ConsultIT':
+            st.session_state.current_page = "page1"
             st.markdown("<hr>", unsafe_allow_html=True)
             st.write('Vi är ett konsultföretag som hjälper blablablabla')
             st.markdown("<hr>", unsafe_allow_html=True)
         elif choose == 'Om datasetet':
+            st.session_state.current_page = "page1"
             st.markdown("<hr>", unsafe_allow_html=True)
             st.write('Detta dataset är hämtat från JobTech och visar historiska jobbannonser blablablabla.')
             st.markdown("<hr>", unsafe_allow_html=True)
         elif choose == 'Kontakt':
+            st.session_state.current_page = "page1"
             st.markdown("<hr>", unsafe_allow_html=True)
             st.write('Kontakta oss på consultIT@outlook.com')
             st.markdown("<hr>", unsafe_allow_html=True)
@@ -185,25 +220,26 @@ st.write("<style>div.row-widget.stButton > button:first-child:active{ %s }</styl
 st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_styles, unsafe_allow_html=True)
 
 def main_2():
-    current_page = st.session_state.get("current_page", "page1",)
-
+    current_page = st.session_state.get("current_page", "page1")
     if current_page == "page1":
         page1()
         
     elif current_page == "page2":
         page2()
 
+<<<<<<< HEAD
 #test3
 
+=======
+>>>>>>> 3d0b6292d63faf3276688add6ba44e33015486b5
 def page1():    
-    #clicked = True
+    clicked = True
     #querystr = str(query)
     #example_search_loop_through_hits(querystr)
     #example_search_return_number_of_hits(querystr)
     col1,col2,col3 = st.columns(3)
     with col1:
         if st.button('Artificial intelligence'):
-          
             page2()
             col1.empty()
             st.stop()
@@ -247,72 +283,71 @@ def page1():
     unsafe_allow_html=True
 )
 #import requests
-#competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
 #for compenetcy in competencies:
     #st.write(compenetcy)
-    # FRONTEND
-    technologies = [
-    'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things',
-    'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing',
-    'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies',
-    'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing',
-    'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics',
-    'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence',
-    'Synthetic biology', 'Human-computer interaction', 'Data visualization', 'Analytics tools'
-]
+    col7, col8, col9 = st.columns(3)
+    competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
 
-# Retrieve the number of hits for each technology
-    hit_counts = {}
-    for technology in technologies:
-        hit_counts[technology] = example_search_return_number_of_hits(technology)
+    with col7:
+        st.markdown("<h2 class='small-header'>Emergent Technologies</h2>", unsafe_allow_html=True)
+        for word in competencies:
+            st.write(word)
 
-    # Sort the technologies based on hit counts
-    sorted_technologies = sorted(technologies, key=lambda tech: hit_counts[tech], reverse=True)
-    st.markdown("<div style='display: flex; align-items: center; margin-bottom: 10px; font-size: 24px;'>"
-                "<div style='width: 30%;'>"
-                "<h2 class='small-header'>{}</h2>"
-                "</div>"
-                "<div style='width: 20%; margin-left:5%;'>"
-                "<h2 class='small-header'>{}</h2>"
-                "</div>"
-                "<div style='width: 30%; margin-left:15%;'>"
-                "<h2 class='small-header'>{}</h2>"
-                "</div>"
-                "</div>".format("Emergent Technology", "Aktiva annonser", "Läs mer och se trend"),
-                unsafe_allow_html=True)
+    with col8:
+        st.markdown("<h2 class='small-header'>Aktiva annonser</h2>", unsafe_allow_html=True)
+        st.text("800")
+        st.text("641")
+        st.text("234")
+        st.text("564")
+        st.text("987")
+        st.text("234")
+        st.text("5644")
+        st.text("987")
+        st.text("783")
+        st.text("274")
+        st.text("736")
+        st.text("363")
+        st.text("333")
+        st.text("445")
+        st.text("897")
+        st.text("678")
+        st.text("456")
+        st.text("589")
+        st.text("345")
+        st.text("998")
+        st.text("3445")
+        st.text("112")
+        st.text("334")
+        st.text("454")
+        st.text("345")
+        st.text("254")
 
-    for technology in sorted_technologies:
-        st.markdown("<div style='display: flex; align-items: center; margin-bottom: 10px;'>"
-            "<div style='width: 40%;'>"
-            "<p style='font-size: 14px; margin: 0;'>{}</p>"
-            "</div>"
-            "<div style='width: 20%;'>"
-            "<p style='font-size: 14px; margin: 0;'>{}</p>"
-            "</div>"
-            "<div style='width: 40%; display: flex; justify-content: center;'>"
-            "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' "
-            "class='custom-button' style='color:white; padding:0.1rem 0.2rem; width: 80%; text-align: center;'>"
-            "Om {}</a>"
-            "</div>"
-            "</div>"
-            "<hr style='margin-top: 5px; margin-bottom: 5px;'>".format(technology, hit_counts.get(technology, 0), technology),
-            unsafe_allow_html=True)
+    with col9:
+        st.markdown("<h2 class='small-header'>Läs mer</h2>", unsafe_allow_html=True)
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:0.1rem 0.2rem;'>Om NLP</a>"
+        st.markdown(link, unsafe_allow_html=True)
+        st.session_state.current_page = "page2"
+        st.session_state.current_file = "page2.py"
+            #st.session_state.current_page = "page2"
+            #st.session_state.current_file = "page2.py"
 
-
-
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:0.1rem 0.2rem;'>Om Computer vision</a>"
+        st.markdown(link, unsafe_allow_html=True)
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
 
-
-
-
-
-
-
+        link = "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' class='custom-button' style='color:white; padding:0.1rem 0.2rem;'>Om Robotics</a>"
+        st.markdown(link, unsafe_allow_html=True)
+        st.session_state.current_page = "page2"
+        st.session_state.current_file = "page2.py"
 
 def page2():
-    subprocess.Popen(["streamlit", "run", "page2.py"], shell=True)   
+    subprocess.Popen(["streamlit", "run", "page2.py"], shell=True)
+    st.title("LineChart")
     if st.button("Back"):
         st.session_state.current_page = "page1"
-        st.session_state.current_file = "app.py"  
+        st.session_state.current_file = "app.py"
+
+
+
 main_2()
