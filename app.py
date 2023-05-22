@@ -193,7 +193,7 @@ def main_2():
     elif current_page == "page2":
         page2()
 
-#test
+#test2
 
 def page1():    
     #clicked = True
