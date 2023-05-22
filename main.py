@@ -86,34 +86,32 @@ def plot_linear_regression(x, y, items):
     return plt
 
 # Streamlit app
-def main():
-    print("Hej")
-    st.title("Job Ads Explorer")
-    query = ['cloud', 'artificiell intelligens', 'big data', 'iot']
-    if st.button("Search"):
-        for items in query:
-            hits_by_year = {}
-            for year in range(2016, 2023):
-                job_ads = fetch_job_ads(items, year)
-                hits = display_job_ads(job_ads)
-                hits_by_year[year] = hits
+def drilldown(drilldownquery):
+    query = drilldownquery
+    hits_by_year = {}
+    for year in range(2016, 2023):
+        job_ads = fetch_job_ads(query, year)
+        hits = display_job_ads(job_ads)
+        hits_by_year[year] = hits
 
             #st.write("Hits by Year:")
-            for year, hits in hits_by_year.items():
-                st.write(f"{year}: {hits}")
+        for year, hits in hits_by_year.items():
+            #st.write(f"{year}: {hits}")
 
             x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
             y = np.array(list(hits_by_year.values()))
-            fig = plot_linear_regression(x, y, items)
-            st.pyplot(fig)
+            fig = plot_linear_regression(x, y, query)
+
+    st.pyplot(fig)
+            
+
     
 
 if __name__ == "__main__":
-    main()
 
 
 #FRONTEND
-def menu():
+
     # Add the logo image
        # Add the logo
     logo_path = "https://www.akademiskahogtider.se/digitalAssets/818/c_818170-l_3-k_lo_gu_cen2r294c.png"
@@ -152,8 +150,6 @@ def menu():
             st.write('Kontakta oss på consultIT@outlook.com')
             st.markdown("<hr>", unsafe_allow_html=True)
 
-if __name__ == '__main__':
-    menu()
 
 button_styles = f'''
     height: 100px;
@@ -203,11 +199,9 @@ def page1():
     col1,col2,col3 = st.columns(3)
     with col1:
         if st.button('Artificial intelligence'):
-          
-            page2()
-            col1.empty()
-            st.stop()
-            
+            drilldown("Artificial intelligence")
+
+
     with col2:
         if st.button("Machine learning"):
             page2()
@@ -298,20 +292,17 @@ def page1():
             "<hr style='margin-top: 5px; margin-bottom: 5px;'>".format(technology, hit_counts.get(technology, 0), technology),
             unsafe_allow_html=True)
 
-
-
+        
         st.session_state.current_page = "page2"
         st.session_state.current_file = "page2.py"
 
 
 
 
+def page2(tech):
+    subprocess.Popen(["streamlit", "run", "page2.py"], shell=True)    
+    drilldown(tech)
 
-
-
-
-def page2():
-    subprocess.Popen(["streamlit", "run", "page2.py"], shell=True)   
     if st.button("Back"):
         st.session_state.current_page = "page1"
         st.session_state.current_file = "app.py"  
