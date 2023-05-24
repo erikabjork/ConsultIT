@@ -52,38 +52,37 @@ def example_search_return_number_of_hits(query):
         print(f"Error retrieving number of hits for '{query}': {str(e)}")
 
 def plot_linear_regression(x, y, items):
-    model = LinearRegression().fit(x, y)
-    x_future = np.array(range(2019, 2025)).reshape((-1, 1))
-    y_predicted = model.predict(x_future)
-
     plt.figure(figsize=(8, 6))
 
-    # Plot the red line first to ensure it's behind the scatter plot
-    plt.plot(x_future, y_predicted, color='#f40000', label='Trendline', linewidth=2)
+    # Plot the trend line
+    plt.plot(x, y, color='#f40000', label='Trendline', linewidth=2)
 
-    # Plot the blue scatter plot points
+    # Plot the scatter plot points
     plt.scatter(x, y, color='#26abff', label='Hits', zorder=9)
 
-    # Plot the green dot above the red line
-    plt.scatter(2024, y_predicted[5], color='#50c878', label='Predicted', zorder=10)
+    # Plot the last predicted point
+    x_future = np.array(range(2019, 2025)).reshape((-1, 1))
+    model = LinearRegression().fit(x, y)
+    y_predicted = model.predict(x_future)
+    predicted_value_2024 = int(round(y_predicted[5]))  # Predicted value for 2024 (index 5)
+    plt.scatter(2024, y_predicted[5], color='#50c878', label='Prediction', zorder=10)
 
     plt.xlabel('Year', fontsize=12)
     plt.ylabel('Number of Ads', fontsize=12)
-    plt.title('Linear Regression of ' + items, fontsize=14)
+    plt.title('Trend Chart of ' + items, fontsize=14)
     plt.legend(fontsize=10)
 
-    predicted_value_2024 = int(round(y_predicted[5]))  # Predicted value for 2024 (index 8)
     plt.annotate(
-        f'Prediction 2024: {predicted_value_2024}',
-        xy=(2024, y_predicted[5]),
-        xytext=(2024, y_predicted[5]),  # Adjusted y-coordinate for the text
-        fontsize=10,
-        ha='center',
-        va='bottom',  # Adjust the vertical alignment of the text
-        bbox=dict(boxstyle='round', facecolor='white', edgecolor='white')  # Add a white background to the annotation text
+    f'Prediction 2024: {predicted_value_2024}',
+    xy=(2024, y_predicted[5]),
+    xytext=(2024, y_predicted[5]),  # Adjusted y-coordinate for the text
+    fontsize=10,  # Adjust the font size
+    ha='center',
+    va='bottom',  # Adjust the vertical alignment of the text
+    bbox=dict(boxstyle='round', facecolor='white', edgecolor='white')  # Add a white background to the annotation text
     )
-
     return plt
+
 
 # Streamlit app
 
@@ -224,7 +223,7 @@ def page2():
         job_ads = fetch_job_ads(technology, year)
         hits = display_job_ads(job_ads)
         if hits is None:
-            hits = 1
+            hits = 0
         hits_by_year[year] = hits
 
     x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
