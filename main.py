@@ -171,12 +171,12 @@ st.write("<style>div.row-widget.stButton > button:first-child:active{ %s }</styl
 st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_styles, unsafe_allow_html=True)
 
 def main_2():
-    current_page = st.session_state.get("current_page", "page1",)
+    current_page = st.session_state.get("current_page", "page1")
 
     if current_page == "page1":
         page1()
     if current_page == "page2":
-        page2(technology)
+        page2()
 
 
 
@@ -221,10 +221,13 @@ def onclicked():
     st.session_state.current_page = 'page2'
     st.session_state.current_file = 'page2.py'
 
-def page2(query):    
+def page2():    
+
+    technology = st.session_state.technology
+    st.write("Technology from page1:", technology)
     hits_by_year = {}
     for year in range(2016, 2023):
-        job_ads = fetch_job_ads(query, year)
+        job_ads = fetch_job_ads(technology, year)
         hits = display_job_ads(job_ads)
         hits_by_year[year] = hits
 
@@ -234,7 +237,7 @@ def page2(query):
 
             x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
             y = np.array(list(hits_by_year.values()))
-            fig = plot_linear_regression(x, y, query)
+            fig = plot_linear_regression(x, y, technology)
 
     st.pyplot(fig)
 
@@ -286,14 +289,17 @@ for technology in technologies:
         if st.button(label="Om {}".format(technology), key="button_{}".format(technology)):
             # Code to execute when the button is pressed
             st.write("Button pressed!")
-            page2(technology)
+            st.sidebar.empty()
+            st.write('Sidebar empty')
             st.session_state.current_page = 'page2'
             st.session_state.current_file = 'page2.py'
+            st.session_state.technology = technology
+
             st.write('Directing to page2...')
 
 
 
             # Perform additional actions or computations
 
-
+#commmitchange
 main_2()
