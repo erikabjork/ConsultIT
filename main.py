@@ -54,18 +54,19 @@ def example_search_return_number_of_hits(query):
 def plot_linear_regression(x, y, items):
     plt.figure(figsize=(8, 6))
 
-    # Plot the trend line
-    plt.plot(x, y, color='#f40000', label='Trendline', linewidth=2)
-
     # Plot the scatter plot points
-    plt.scatter(x, y, color='#26abff', label='Hits', zorder=9)
+    plt.scatter(x, y, color='#26abff', label='Hits', zorder=3)
+
+    # Plot the trend line
+    plt.plot(x, y, color='#f40000', label='Trendline', linewidth=2, zorder=2)
 
     # Plot the last predicted point
     x_future = np.array(range(2019, 2025)).reshape((-1, 1))
     model = LinearRegression().fit(x, y)
     y_predicted = model.predict(x_future)
     predicted_value_2024 = int(round(y_predicted[5]))  # Predicted value for 2024 (index 5)
-    plt.scatter(2024, y_predicted[5], color='#50c878', label='Prediction', zorder=10)
+    plt.scatter(2024, y_predicted[5], color='#50c878', label='Prediction', zorder=1)
+    plt.plot(x_future, y_predicted, color='#50c878', linewidth=2, zorder=1)
 
     plt.xlabel('Year', fontsize=12)
     plt.ylabel('Number of Ads', fontsize=12)
@@ -73,15 +74,17 @@ def plot_linear_regression(x, y, items):
     plt.legend(fontsize=10)
 
     plt.annotate(
-    f'Prediction 2024: {predicted_value_2024}',
-    xy=(2024, y_predicted[5]),
-    xytext=(2024, y_predicted[5]),  # Adjusted y-coordinate for the text
-    fontsize=10,  # Adjust the font size
-    ha='center',
-    va='bottom',  # Adjust the vertical alignment of the text
-    bbox=dict(boxstyle='round', facecolor='white', edgecolor='white')  # Add a white background to the annotation text
+        f'Prediction 2024: {predicted_value_2024}',
+        xy=(2024, y_predicted[5]),
+        xytext=(2024, y_predicted[5]),  # Adjusted y-coordinate for the text
+        fontsize=10,  # Adjust the font size
+        ha='center',
+        va='bottom',  # Adjust the vertical alignment of the text
+        bbox=dict(boxstyle='round', facecolor='white', edgecolor='white')  # Add a white background to the annotation text
     )
+
     return plt
+
 
 
 # Streamlit app
