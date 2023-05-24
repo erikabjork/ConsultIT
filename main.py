@@ -6,6 +6,8 @@ import numpy as np
 import altair as alt
 import pandas as pd
 from streamlit_option_menu import option_menu
+import page2
+from page2 import get_content
 
 import streamlit as st
 import requests
@@ -180,10 +182,6 @@ def main_2():
 
 
 
-
-
-#test3
-
 def page1():    
     #clicked = True
     #querystr = str(query)
@@ -224,7 +222,6 @@ def onclicked():
 def page2():    
 
     technology = st.session_state.technology
-    st.write("Technology from page1:", technology)
     hits_by_year = {}
     for year in range(2016, 2023):
         job_ads = fetch_job_ads(technology, year)
@@ -248,27 +245,37 @@ def page2():
 
 
 #MARKDOWN
-st.markdown("<div style='display: flex; align-items: center; margin-bottom: 10px; font-size: 24px;'>"
-            "<div style='width: 30%;'>"
-            "<h2 class='small-header'>{}</h2>"
-            "</div>"
-            "<div style='width: 20%; margin-left:5%;'>"
-            "<h2 class='small-header'>{}</h2>"
-            "</div>"
-            "<div style='width: 30%; margin-left:15%;'>"
-            "<h2 class='small-header'>{}</h2>"
-            "</div>"
-            "</div>".format("Emergent Technology", "Aktiva annonser", "Läs mer och se trend"),
-            unsafe_allow_html=True)
+st.write("""
+    <div style='display: flex; align-items: center; margin-bottom: 10px; font-size: 12px;'>
+        <div style='width: 30%;'>
+            <h2 class='' style="font-size:18px;">Emergent Technology</h2>
+        </div>
+        <div style='width: 20%; margin-left: 5%;'>
+            <h2 class='' style="font-size:18px;">Aktiva annonser</h2>
+        </div>
+        <div style='width: 30%; margin-left: 15%;'>
+            <h2 class='' style="font-size:18px;">Läs mer och se trend</h2>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
 
 
 # Individual div for "IoT"
 
-technologies = ['python', 'Iot', 'Java']
+technologies = ['Python', 'Iot', 'Java', 'Blockchain', 'Artificiell Intelligens', 'Cloud']
+
+# Create a list to store the tuples (technology, num)
+results = []
 
 for technology in technologies:
     num = example_search_return_number_of_hits(technology)
+    results.append((technology, num))
 
+# Sort the results based on the num value in descending order
+results.sort(key=lambda x: x[1], reverse=True)
+
+for technology, num in results:
     co1, co2 = st.columns([1, 1])
     with co1:
         st.markdown("<div style='display: flex; align-items: center; margin-bottom: 10px;'>"
@@ -285,17 +292,13 @@ for technology in technologies:
                     unsafe_allow_html=True)
 
     with co2:
-        
         if st.button(label="Om {}".format(technology), key="button_{}".format(technology)):
             # Code to execute when the button is pressed
-            st.write("Button pressed!")
-            st.sidebar.empty()
-            st.write('Sidebar empty')
             st.session_state.current_page = 'page2'
             st.session_state.current_file = 'page2.py'
             st.session_state.technology = technology
 
-            st.write('Directing to page2...')
+
 
 
 
