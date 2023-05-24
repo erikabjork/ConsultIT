@@ -219,6 +219,8 @@ def onclicked():
     st.session_state.current_page = 'page2'
     st.session_state.current_file = 'page2.py'
 
+import streamlit as st
+
 def page2():
     technology = st.session_state.technology
     hits_by_year = {}
@@ -235,9 +237,11 @@ def page2():
 
     st.pyplot(fig)
 
-    #if st.button("Back", key="Backbutton"):
-        #st.session_state.current_page = "page1"
-        #st.session_state.current_file = "app.py"  
+    if technology == 'python':
+        st.write("Python is a popular programming language known for its simplicity and readability. It is widely used in various domains, including web development, data analysis, machine learning, and more. Python has a large standard library and a vast ecosystem of third-party packages, making it a versatile language for different applications.")
+        st.write("Python works by interpreting the code written by the developer and executing it line by line. It uses an automatic memory management system and supports object-oriented programming, functional programming, and procedural programming paradigms.")
+    
+    # Add your back button code here
 
 
 
@@ -260,7 +264,11 @@ st.write("""
 
 # Individual div for "IoT"
 
-technologies = ['Python', 'Iot', 'Java', 'Blockchain', 'Artificiell Intelligens', 'Cloud', 'Web3', 'Quantum', 'Cyber Security']
+technologies = ['python', 'Augmented Reality', 'Virtual Reality', 'Iot', 'Blockchain', 'Artificiell Intelligens',
+                'Cloud', 'Web3', 'Quantum Computing', 'Cyber Security', '5G', '3D Printing', 'Edge Computing',
+                'Big data', 'Autonomous vehicles', 'Smart grids', 'Wearable technologies', 'Nanotechnology',
+                 'Cognitive computing','Human-computer interaction', 'Data visualization', 'Analytics tool'
+                  ]
 
 # Create a list to store the tuples (technology, num)
 results = []
