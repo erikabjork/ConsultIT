@@ -28,8 +28,6 @@ def fetch_job_ads(query, year):
 def display_job_ads(job_ads):
     if job_ads is None:
         st.write("Error fetching job ads. Please try again.")
-    elif not job_ads["hits"]:
-        st.write("No job ads found for the specified query and year.")
     else:
         total_hits = job_ads['total']['value']
         #st.write(f"Total job ads found: {total_hits}")
@@ -55,7 +53,7 @@ def example_search_return_number_of_hits(query):
 
 def plot_linear_regression(x, y, items):
     model = LinearRegression().fit(x, y)
-    x_future = np.array(range(2016, 2026)).reshape((-1, 1))
+    x_future = np.array(range(2019, 2025)).reshape((-1, 1))
     y_predicted = model.predict(x_future)
 
     plt.figure(figsize=(8, 6))
@@ -67,18 +65,18 @@ def plot_linear_regression(x, y, items):
     plt.scatter(x, y, color='#26abff', label='Hits', zorder=9)
 
     # Plot the green dot above the red line
-    plt.scatter(2024, y_predicted[8], color='#50c878', label='Predicted', zorder=10)
+    plt.scatter(2024, y_predicted[5], color='#50c878', label='Predicted', zorder=10)
 
     plt.xlabel('Year', fontsize=12)
     plt.ylabel('Number of Ads', fontsize=12)
     plt.title('Linear Regression of ' + items, fontsize=14)
     plt.legend(fontsize=10)
 
-    predicted_value_2024 = int(round(y_predicted[8]))  # Predicted value for 2024 (index 8)
+    predicted_value_2024 = int(round(y_predicted[5]))  # Predicted value for 2024 (index 8)
     plt.annotate(
         f'Prediction 2024: {predicted_value_2024}',
-        xy=(2024, y_predicted[8]),
-        xytext=(2024, y_predicted[8] + 200),
+        xy=(2024, y_predicted[5]),
+        xytext=(2024, y_predicted[5]),  # Adjusted y-coordinate for the text
         fontsize=10,
         ha='center',
         va='bottom',  # Adjust the vertical alignment of the text
@@ -219,22 +217,19 @@ def onclicked():
     st.session_state.current_page = 'page2'
     st.session_state.current_file = 'page2.py'
 
-def page2():    
-
+def page2():
     technology = st.session_state.technology
     hits_by_year = {}
-    for year in range(2016, 2023):
+    for year in range(2019, 2023):
         job_ads = fetch_job_ads(technology, year)
         hits = display_job_ads(job_ads)
+        if hits is None:
+            hits = 1
         hits_by_year[year] = hits
 
-            #st.write("Hits by Year:")
-        for year, hits in hits_by_year.items():
-            #st.write(f"{year}: {hits}")
-
-            x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
-            y = np.array(list(hits_by_year.values()))
-            fig = plot_linear_regression(x, y, technology)
+    x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
+    y = np.array(list(hits_by_year.values()))
+    fig = plot_linear_regression(x, y, technology)
 
     st.pyplot(fig)
 
@@ -263,7 +258,7 @@ st.write("""
 
 # Individual div for "IoT"
 
-technologies = ['Python', 'Iot', 'Java', 'Blockchain', 'Artificiell Intelligens', 'Cloud']
+technologies = ['Python', 'Iot', 'Java', 'Blockchain', 'Artificiell Intelligens', 'Cloud', 'Web3', 'Quantum', 'Cyber Security']
 
 # Create a list to store the tuples (technology, num)
 results = []
