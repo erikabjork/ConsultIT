@@ -86,23 +86,7 @@ def plot_linear_regression(x, y, items):
     return plt
 
 # Streamlit app
-def drilldown(drilldownquery):
-    query = drilldownquery
-    hits_by_year = {}
-    for year in range(2016, 2023):
-        job_ads = fetch_job_ads(query, year)
-        hits = display_job_ads(job_ads)
-        hits_by_year[year] = hits
 
-            #st.write("Hits by Year:")
-        for year, hits in hits_by_year.items():
-            #st.write(f"{year}: {hits}")
-
-            x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
-            y = np.array(list(hits_by_year.values()))
-            fig = plot_linear_regression(x, y, query)
-
-    st.pyplot(fig)
             
 
     
@@ -152,13 +136,19 @@ if __name__ == "__main__":
 
 
 button_styles = f'''
-    height: 100px;
-    width: 200px;
-    font-size: 20px;
-    color:black;
-    border: 2px solid black;
-    transition: border-color 0.3s ease-in-out;
-       
+    color: white;
+    background-color: #1cb2f5;
+    padding: 0.1rem 0.2rem;
+    width:70%;
+    text-align: center;
+    font-size: 14px
+    float:right;
+    text-align:center;
+    overflow:hidden;  
+    margin-left:27%;
+    display:block;       
+
+
     '''
 button_clicked_styles = f'''
     height: 100px;
@@ -185,9 +175,12 @@ def main_2():
 
     if current_page == "page1":
         page1()
-        
-    elif current_page == "page2":
-        page2()
+    if current_page == "page2":
+        page2(technology)
+
+
+
+
 
 #test3
 
@@ -196,24 +189,7 @@ def page1():
     #querystr = str(query)
     #example_search_loop_through_hits(querystr)
     #example_search_return_number_of_hits(querystr)
-    col1,col2,col3 = st.columns(3)
-    with col1:
-        if st.button('Artificial intelligence'):
-            drilldown("Artificial intelligence")
 
-
-    with col2:
-        if st.button("Machine learning"):
-            page2()
-            col2.empty()
-            st.stop()
-
-    with col3:
-        if st.button('Deep learning'):
-            page2()
-            col3.empty()
-            st.stop()
-        
     st.markdown(
     """
     <style>
@@ -240,70 +216,84 @@ def page1():
     """,
     unsafe_allow_html=True
 )
-#import requests
-#competencies = ['Artificial intelligence', 'Machine learning', 'Deep learning', 'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things', 'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing', 'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies', 'Predictive analytics', 'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing', 'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics', 'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence', 'Synthetic biology', 'Human-computer interaction', 'Data visualization, ’Analytics tools']
-#for compenetcy in competencies:
-    #st.write(compenetcy)
-    # FRONTEND
-    technologies = [
-    'Natural language processing', 'Computer vision', 'Robotics', 'Internet of Things',
-    'Blockchain technology', 'Augmented reality', 'Virtual reality', 'Quantum computing',
-    'Big data analytics', 'Cloud computing', 'Edge computing', 'Cybersecurity technologies',
-    'Autonomous vehicles', 'Genetic engineering', '3D printing/additive manufacturing',
-    'Advanced materials science', 'Renewable energy technologies', 'Smart grids', 'Biometrics',
-    'Wearable technologies', 'Nanotechnology', 'Cognitive computing', 'Swarm intelligence',
-    'Synthetic biology', 'Human-computer interaction', 'Data visualization', 'Analytics tools'
-]
 
-# Retrieve the number of hits for each technology
-    hit_counts = {}
-    for technology in technologies:
-        hit_counts[technology] = example_search_return_number_of_hits(technology)
+def onclicked():   
+    st.session_state.current_page = 'page2'
+    st.session_state.current_file = 'page2.py'
 
-    # Sort the technologies based on hit counts
-    sorted_technologies = sorted(technologies, key=lambda tech: hit_counts[tech], reverse=True)
-    st.markdown("<div style='display: flex; align-items: center; margin-bottom: 10px; font-size: 24px;'>"
-                "<div style='width: 30%;'>"
-                "<h2 class='small-header'>{}</h2>"
-                "</div>"
-                "<div style='width: 20%; margin-left:5%;'>"
-                "<h2 class='small-header'>{}</h2>"
-                "</div>"
-                "<div style='width: 30%; margin-left:15%;'>"
-                "<h2 class='small-header'>{}</h2>"
-                "</div>"
-                "</div>".format("Emergent Technology", "Aktiva annonser", "Läs mer och se trend"),
-                unsafe_allow_html=True)
+def page2(query):    
+    hits_by_year = {}
+    for year in range(2016, 2023):
+        job_ads = fetch_job_ads(query, year)
+        hits = display_job_ads(job_ads)
+        hits_by_year[year] = hits
 
-    for technology in sorted_technologies:
-        st.markdown("<div style='display: flex; align-items: center; margin-bottom: 10px;'>"
-            "<div style='width: 40%;'>"
-            "<p style='font-size: 14px; margin: 0;'>{}</p>"
+            #st.write("Hits by Year:")
+        for year, hits in hits_by_year.items():
+            #st.write(f"{year}: {hits}")
+
+            x = np.array(list(hits_by_year.keys())).reshape((-1, 1))
+            y = np.array(list(hits_by_year.values()))
+            fig = plot_linear_regression(x, y, query)
+
+    st.pyplot(fig)
+
+    #if st.button("Back", key="Backbutton"):
+        #st.session_state.current_page = "page1"
+        #st.session_state.current_file = "app.py"  
+
+
+
+#MARKDOWN
+st.markdown("<div style='display: flex; align-items: center; margin-bottom: 10px; font-size: 24px;'>"
+            "<div style='width: 30%;'>"
+            "<h2 class='small-header'>{}</h2>"
             "</div>"
-            "<div style='width: 20%;'>"
-            "<p style='font-size: 14px; margin: 0;'>{}</p>"
+            "<div style='width: 20%; margin-left:5%;'>"
+            "<h2 class='small-header'>{}</h2>"
             "</div>"
-            "<div style='width: 40%; display: flex; justify-content: center;'>"
-            "<a href='#' onclick='window.open(\"http://localhost:8501/?app=page2\")' "
-            "class='custom-button' style='color:white; padding:0.1rem 0.2rem; width: 80%; text-align: center;'>"
-            "Om {}</a>"
+            "<div style='width: 30%; margin-left:15%;'>"
+            "<h2 class='small-header'>{}</h2>"
             "</div>"
-            "</div>"
-            "<hr style='margin-top: 5px; margin-bottom: 5px;'>".format(technology, hit_counts.get(technology, 0), technology),
+            "</div>".format("Emergent Technology", "Aktiva annonser", "Läs mer och se trend"),
             unsafe_allow_html=True)
 
+
+# Individual div for "IoT"
+
+technologies = ['python', 'Iot', 'Java']
+
+for technology in technologies:
+    num = example_search_return_number_of_hits(technology)
+
+    co1, co2 = st.columns([1, 1])
+    with co1:
+        st.markdown("<div style='display: flex; align-items: center; margin-bottom: 10px;'>"
+                    "<div style='width: 700px;'>"
+                    "<p style='font-size: 14px; margin: 0;'>{}</p>"
+                    "</div>"
+                    "<div style='width: 20%;'>"
+                    "<p style='font-size: 14px; margin: 0;'>{}</p>"
+                    "</div>"
+                    "<div style='width: 40%; display: flex; justify-content: center;'>"
+                    "</div>"
+                    "</div>"
+                    "<hr style='margin-top: 5px; margin-bottom: 5px;'>".format(technology, num),
+                    unsafe_allow_html=True)
+
+    with co2:
         
-        st.session_state.current_page = "page2"
-        st.session_state.current_file = "page2.py"
+        if st.button(label="Om {}".format(technology), key="button_{}".format(technology)):
+            # Code to execute when the button is pressed
+            st.write("Button pressed!")
+            page2(technology)
+            st.session_state.current_page = 'page2'
+            st.session_state.current_file = 'page2.py'
+            st.write('Directing to page2...')
 
 
 
+            # Perform additional actions or computations
 
-def page2(tech):
-    subprocess.Popen(["streamlit", "run", "page2.py"], shell=True)    
-    drilldown(tech)
 
-    if st.button("Back"):
-        st.session_state.current_page = "page1"
-        st.session_state.current_file = "app.py"  
 main_2()
