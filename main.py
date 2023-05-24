@@ -172,6 +172,7 @@ st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % 
 def main_2():
     current_page = st.session_state.get("current_page", "page1")
 
+
     if current_page == "page1":
         page1()
     if current_page == "page2":
@@ -234,6 +235,11 @@ def page2():
 
     st.pyplot(fig)
 
+    st.header('Om trendlinjen')
+    st.write('Vi har skapat en trendlinje genom att tillämpa maskininlärning och programmering för att ge den mest precisa förutsägelsen. Genom att analysera data och mönster har vi kunnat skapa en linje som framgångsrikt förutser trenderna. Ibland kan det dock finnas fall där y-axeln är 0 på grund av små fel i den API vi använder. Trots dessa små missar fortsätter vi att förbättra och finslipa vår trendlinje för att erbjuda bästa möjliga resultat.')
+    
+
+    #Vi gör såhär för varenda tech som är med i listan. Så det är en liten sammanfattning. :)
     if technology == 'python':
         st.write("Python is a popular programming language known for its simplicity and readability. It is widely used in various domains, including web development, data analysis, machine learning, and more. Python has a large standard library and a vast ecosystem of third-party packages, making it a versatile language for different applications.")
         st.write("Python works by interpreting the code written by the developer and executing it line by line. It uses an automatic memory management system and supports object-oriented programming, functional programming, and procedural programming paradigms.")
@@ -241,6 +247,13 @@ def page2():
     # Add your back button code here
 
 
+
+st.markdown("<h1 style='text-align: center;'>Emerging Technologies</h1>", unsafe_allow_html=True)
+st.write(
+    'Det här verktyget är utformat för att analysera hur utbredda framväxande teknologier är på den svenska arbetsmarknaden. Applikationen är ansluten till två olika API:er från JobTechDev. Aktiva annonser är kopplat till det första API:et och visar aktuella annonser som söker kunskaper inom respektive teknologi. När du klickar på den blå knappen hittar du informationen längst ner på sidan, vilket ger dig möjlighet att undersöka trender och historiska jobbannonser.',
+    unsafe_allow_html=True,
+    width=600
+)
 
 #MARKDOWN
 st.write("""
@@ -261,7 +274,7 @@ st.write("""
 
 # Individual div for "IoT"
 
-technologies = ['python', 'Augmented Reality', 'Virtual Reality', 'Iot', 'Blockchain', 'Artificiell Intelligens',
+technologies = ['python', 'Augmented Reality', 'Virtual Reality', 'Internet of Things', 'Blockchain', 'Artificiell Intelligens',
                 'Cloud', 'Web3', 'Quantum Computing', 'Cyber Security', '5G', '3D Printing', 'Edge Computing',
                 'Big data', 'Autonomous vehicles', 'Smart grids', 'Wearable technologies', 'Nanotechnology',
                  'Cognitive computing','Human-computer interaction', 'Data visualization', 'Analytics tool'
