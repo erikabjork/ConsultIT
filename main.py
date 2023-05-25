@@ -238,24 +238,114 @@ def page2():
 
     st.pyplot(fig)
 
-    st.header('Om trendlinjen')
-    st.write('Vi har skapat en trendlinje genom att tillämpa maskininlärning och programmering för att ge den mest precisa förutsägelsen. Genom att analysera data och mönster har vi kunnat skapa en linje som framgångsrikt förutser trenderna. Ibland kan det dock finnas fall där y-axeln är 0 på grund av små fel i den API vi använder. Trots dessa små missar fortsätter vi att förbättra och finslipa vår trendlinje för att erbjuda bästa möjliga resultat.')
-    
+    st.write(
+    "<div style='width 800px;'>"
+    "<h1>Om trendlinjen</h1>"
+    "<p>Denna trendlinjen är baserad på den andra API:n som innehåller historiska annonser på den svenska jobbmarknaden. Vi har skapat en trendlinje genom att tillämpa maskininlärning och programmering för att ge den mest precisa förutsägelsen. Genom att analysera data och mönster har vi lyckats framgångsrikt skapa en linje som förutser trenderna. Det finns små missar i API:n, men trots detta har vi ändå lyckats bra med resultatet. Vi fortsätter att förbättra och finslipa vår trendlinje för att erbjuda bästa möjliga resultat. </p>"
+    "</div>",
+    unsafe_allow_html=True
+)
+
+    st.subheader('Om ' + technology)
 
     #Vi gör såhär för varenda tech som är med i listan. Så det är en liten sammanfattning. :)
-    if technology == 'python':
-        st.write("Python is a popular programming language known for its simplicity and readability. It is widely used in various domains, including web development, data analysis, machine learning, and more. Python has a large standard library and a vast ecosystem of third-party packages, making it a versatile language for different applications.")
-        st.write("Python works by interpreting the code written by the developer and executing it line by line. It uses an automatic memory management system and supports object-oriented programming, functional programming, and procedural programming paradigms.")
+    if technology == 'Augmented Reality':
+        st.write('Augmented reality är en ny teknologi som gör det möjligt att överlägga digitala objekt och information på den fysiska världen, vilket skapar en förstärkt synupplevelse.')
+        st.write('')
+
+    elif technology == 'Virtual Reality':
+        st.write('Virtual reality är en teknologi som skapar en simulerad, datorgenererad miljö som användaren kan interagera med och uppleva som om den vore verklig.')
+        st.write('')
+
+    elif technology == 'Internet of Things':
+        st.write('Internet of Things (IoT) innebär att fysiska enheter och objekt är anslutna till internet och kan samla in och utbyta data. Det möjliggör smarta och automatiserade lösningar.')
+        st.write('')
+
+    elif technology == 'Blockchain':
+        st.write('Blockchain är en decentraliserad och distribuerad teknik som används för att lagra och verifiera transaktioner. Den ger ökad säkerhet och transparens inom exempelvis digitala valutor och avtalsprocesser.')
+        st.write('')
+
+    elif technology == 'Artificiell Intelligens':
+        st.write('Artificiell intelligens (AI) är en teknologi som fokuserar på att skapa datorer och system som kan utföra uppgifter som normalt kräver mänsklig intelligens. Det inkluderar områden som maskininlärning, naturlig språkbearbetning och bildigenkänning.')
+        st.write('')
+
+    elif technology == 'Cloud':
+        st.write('Cloud computing är en teknik som tillåter tillgång till datalagring, beräkningsresurser och programvara över internet. Det gör det möjligt att snabbt skalas upp eller ner efter behov och undvika behovet av att hantera egna fysiska servrar.')
+        st.write('')
+
+    elif technology == 'Web3':
+        st.write('Web3 representerar den nästa generationens webb, där decentraliserade applikationer (DApps) och blockchain-teknik används för att skapa en mer öppen, censurresistent och autonom webbmiljö.')
+        st.write('')
+
+    elif technology == 'Quantum Computing':
+        st.write('Kvantdatorer är en ny typ av datorer som använder sig av kvantmekaniska principer för att utföra beräkningar. De kan lösa komplexa problem avsevärt snabbare än traditionella datorer inom områden som kryptografi och optimering.')
+        st.write('')
+
+    elif technology == 'Cyber Security':
+        st.write('Cybersäkerhet omfattar teknologier, processer och metoder för att skydda datorsystem, nätverk och data mot digitala hot och attacker. Det inkluderar bland annat brandväggar, antivirusprogram, kryptering och säkerhetsprotokoll.')
+        st.write('')
+
+    elif technology == '5G':
+        st.write('5G är den femte generationens trådlösa kommunikationsteknik. Den ger betydligt högre hastighet, lägre fördröjning och större kapacitet än tidigare generationer av mobilnätverk, vilket möjliggör snabbare dataöverföring och stöd för en mängd nya applikationer och enheter.')
+        st.write('')
+
+    elif technology == '3D Printing':
+        st.write('3D-utskrift, eller additiv tillverkning, är en teknik som skapar fysiska objekt genom att lägga till material i lager istället för att ta bort det från ett block av material. Det möjliggör snabb prototyptillverkning, anpassade produkter och mer effektiv produktion.')
+        st.write('')
+
+    elif technology == 'Edge Computing':
+        st.write('Edge computing är en modell för datalagring och bearbetning där data hanteras nära källan istället för att skickas till en central molntjänst. Det ger snabbare responstider, minskad belastning på nätverket och möjliggör realtidsapplikationer.')
+        st.write('')
+
+    elif technology == 'Big data':
+        st.write('Big data hänvisar till stora och komplexa datamängder som är för stora för att bearbetas med traditionella databearbetningsmetoder. Det handlar om att samla in, lagra, hantera och analysera data för att extrahera insikter och mönster för bättre beslutsfattande.')
+        st.write('')
+
+    elif technology == 'Autonomous vehicles':
+        st.write('Autonoma fordon, eller självkörande fordon, är fordon som kan navigera och köra utan mänsklig inblandning. De använder sensorer, kameror, radarteknik och avancerade algoritmer för att upptäcka och reagera på omgivningen.')
+        st.write('')
+
+    elif technology == 'Smart grids':
+        st.write('Smart grids är moderna elnät som använder digital teknik och kommunikationsprotokoll för att optimera distributionen och användningen av elektricitet. De möjliggör smart mätning, fjärrstyrning av enheter och bättre hantering av energiflöden.')
+        st.write('')
+
+    elif technology == 'Wearable technologies':
+        st.write('Wearable technologies refererar till tekniska enheter och datorer som kan bäras på kroppen, vanligtvis i form av smycken, kläder eller accessoarer. De används för att övervaka hälsa och fitness, ge tillgång till information eller möjliggöra interaktion med digitala system.')
+        st.write('')
+
+    elif technology == 'Nanotechnology':
+        st.write('Nanoteknik är studien och användningen av material och strukturer på nanometerskala. Den möjliggör framsteg inom olika områden som materialvetenskap, medicin, energi och elektronik genom att manipulera materialet på atomnivå.')
+        st.write('')
+
+    elif technology == 'Cognitive computing':
+        st.write('Kognitiv databehandling är en gren inom AI som syftar till att replikera mänskliga kognitiva funktioner, såsom tänkande, resonemang och problemlösning. Den använder avancerade algoritmer och modeller för att bearbeta och förstå komplexa data och mönster.')
+        st.write('')
+
+    elif technology == 'Human-computer interaction':
+        st.write('Human-computer interaction (HCI) handlar om designen och interaktionen mellan människor och datorer. Det fokuserar på att skapa användarvänliga och effektiva gränssnitt, inklusive röststyrning, gestigenkänning och naturlig användarinteraktion.')
+        st.write('')
+
+    elif technology == 'Data visualization':
+        st.write('Data visualisering innebär att presentera data på ett visuellt och lättförståeligt sätt. Det hjälper till att identifiera mönster, trender och insikter från stora datamängder genom att använda diagram, grafer, kartor och andra visuella representationer.')
+        st.write('')
+
+    elif technology == 'Analytics tool':
+        st.write('Analytics tool refererar till mjukvaruverktyg och tekniker som används för att samla in, hantera och analysera data för att extrahera insikter och fatta datadrivna beslut. Det kan inkludera verktyg för datahantering, visualisering, prediktiv analys och maskininlärning.')
+        st.write('')
     
+    else:
+        st.write('')
     # Add your back button code here
 
 
-
-st.markdown("<h1 style='text-align: center;'>Emerging Technologies</h1>", unsafe_allow_html=True)
 st.write(
-    'Det här verktyget är utformat för att analysera hur utbredda framväxande teknologier är på den svenska arbetsmarknaden. Applikationen är ansluten till två olika API:er från JobTechDev. Aktiva annonser är kopplat till det första API:et och visar aktuella annonser som söker kunskaper inom respektive teknologi. När du klickar på den blå knappen hittar du informationen längst ner på sidan, vilket ger dig möjlighet att undersöka trender och historiska jobbannonser.',
-    unsafe_allow_html=True,
-    width=600
+    "<div style='width 800px;'>"
+    "<h1>Emerging Technologies</h1>"
+    "<p>Det här verktyget är utformat för att analysera hur utbredda framväxande teknologier är på den svenska arbetsmarknaden. Applikationen är ansluten till två olika API:er från JobTechDev. "
+    "<b>Aktiva annonser</b> är kopplat till det första API:et och visar aktuella annonser som söker kunskaper inom respektive teknologi. "
+    "När du klickar på den <b>blå knappen</b> hittar du informationen längst ner på sidan, vilket ger dig möjlighet att undersöka trender och historiska jobbannonser.</p>"
+    "</div>",
+    unsafe_allow_html=True
 )
 
 #MARKDOWN
@@ -277,7 +367,7 @@ st.write("""
 
 # Individual div for "IoT"
 
-technologies = ['python', 'Augmented Reality', 'Virtual Reality', 'Internet of Things', 'Blockchain', 'Artificiell Intelligens',
+technologies = ['Augmented Reality', 'Virtual Reality', 'Internet of Things', 'Blockchain', 'Artificiell Intelligens',
                 'Cloud', 'Web3', 'Quantum Computing', 'Cyber Security', '5G', '3D Printing', 'Edge Computing',
                 'Big data', 'Autonomous vehicles', 'Smart grids', 'Wearable technologies', 'Nanotechnology',
                  'Cognitive computing','Human-computer interaction', 'Data visualization', 'Analytics tool'
@@ -300,7 +390,7 @@ for technology, num in results:
                     "<div style='width: 700px;'>"
                     "<p style='font-size: 14px; margin: 0;'>{}</p>"
                     "</div>"
-                    "<div style='width: 20%;'>"
+                    "<div style='width: 30%;'>"
                     "<p style='font-size: 14px; margin: 0;'>{}</p>"
                     "</div>"
                     "<div style='width: 40%; display: flex; justify-content: center;'>"
