@@ -8,12 +8,8 @@ import pandas as pd
 from streamlit_option_menu import option_menu
 import page2
 from page2 import get_content
-
-import streamlit as st
-import requests
 import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
 from sklearn.linear_model import LinearRegression
 
 # JobTech Historical API base URL
@@ -54,7 +50,6 @@ def example_search_return_number_of_hits(query):
 def plot_linear_regression(x, y, items):
     plt.figure(figsize=(8, 6))
 
-    # Plot the scatter plot points
     plt.scatter(x, y, color='#26abff', label='Hits', zorder=3)
 
     # Plot the trend line
@@ -86,15 +81,8 @@ def plot_linear_regression(x, y, items):
     return plt
 
 
-
-# Streamlit app
-
-            
-
-    
-
+#Start app
 if __name__ == "__main__":
-
 
 #FRONTEND
 
@@ -105,7 +93,6 @@ if __name__ == "__main__":
     logo = f'<img src="{logo_path}" style="position: none; top: 10px; left: 10px; width: 100px; margin-left:32%; margin-top:-30%;">'
     st.sidebar.markdown(logo, unsafe_allow_html=True)
 
-    # Rest of your code...
     with st.sidebar:
         choose = option_menu(" ‎ ‎ ‎Systemvetenskap", ["Beskrivning", "Om ConsultIT", "Om datasetet", "Kontakt"],
                              icons=['book', 'app-indicator', 'gear', 'telephone'],
@@ -184,10 +171,6 @@ def main_2():
 
 
 def page1():    
-    #clicked = True
-    #querystr = str(query)
-    #example_search_loop_through_hits(querystr)
-    #example_search_return_number_of_hits(querystr)
 
     st.markdown(
     """
@@ -215,10 +198,6 @@ def page1():
     """,
     unsafe_allow_html=True
 )
-
-def onclicked():   
-    st.session_state.current_page = 'page2'
-    st.session_state.current_file = 'page2.py'
 
 import streamlit as st
 
@@ -335,7 +314,6 @@ def page2():
     
     else:
         st.write('')
-    # Add your back button code here
 
 
 st.write(
@@ -362,10 +340,6 @@ st.write("""
         </div>
     </div>
 """, unsafe_allow_html=True)
-
-
-
-# Individual div for "IoT"
 
 technologies = ['Augmented Reality', 'Virtual Reality', 'Internet of Things', 'Blockchain', 'Artificiell Intelligens',
                 'Cloud', 'Web3', 'Quantum Computing', 'Cyber Security', '5G', '3D Printing', 'Edge Computing',
