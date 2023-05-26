@@ -107,16 +107,15 @@ if __name__ == "__main__":
 
         if choose == 'Beskrivning':
             st.markdown("<hr>", unsafe_allow_html=True)
-            st.write('Applikationen visar vad som kortsiktigt efterfrågas på arbetsmarknaden och utifrån det är tanken att kunna anpassa valbara kurser på det systemvetenskapliga programmet.')
+            st.write('Applikationen visar de emergent technologies som efterfrågas på arbetsmarknaden från år 2019 till 2023. Applikationen syfte är att agera som hjälpmedel för programansvarig på systemvetenskapliga program på universitet att enklare anpassa utbudet på de valbara kurserna som erbjuds till studenter. Med hjälp av linjediagram kan användaren få en överblick om trendutveckling och se prognos för kommande år.')
             st.markdown("<hr>", unsafe_allow_html=True)
-
         elif choose == 'Om ConsultIT':
             st.markdown("<hr>", unsafe_allow_html=True)
-            st.write('Vi är ett konsultföretag som hjälper blablablabla')
+            st.write('Vi är en konsultfirma specialiserad på att stödja universitet och högre utbildningsinstitutioner. Med vår erfarenhet och djupa förståelse för utmaningarna inom den akademiska världen erbjuder vi skräddarsydda lösningar och expertis för att hjälpa universitet att nå sina strategiska mål')
             st.markdown("<hr>", unsafe_allow_html=True)
         elif choose == 'Om datasetet':
             st.markdown("<hr>", unsafe_allow_html=True)
-            st.write('Detta dataset är hämtat från JobTech och visar historiska jobbannonser blablablabla.')
+            st.write('Applikationen använder data från källan https://jobtechdev.se, specifikt dataseten "Historiska annonser" och "JobSearch Trends", för att genomföra en noggrann analys. Dessa dataset ger både historiska och aktuella jobbannonser, vilket möjliggör en relevant analys. Datan sträcker sig från år 2019 till 2023.')
             st.markdown("<hr>", unsafe_allow_html=True)
         elif choose == 'Kontakt':
             st.markdown("<hr>", unsafe_allow_html=True)
