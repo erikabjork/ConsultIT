@@ -56,11 +56,11 @@ def plot_linear_regression(x, y, items):
     plt.plot(x, y, color='#f40000', label='Trendline', linewidth=2, zorder=2)
 
     # Plot the last predicted point
-    x_future = np.array(range(2019, 2025)).reshape((-1, 1))
+    x_future = np.array(range(2016, 2025)).reshape((-1, 1))
     model = LinearRegression().fit(x, y)
     y_predicted = model.predict(x_future)
-    predicted_value_2024 = int(round(y_predicted[5]))  # Predicted value for 2024 (index 5)
-    plt.scatter(2024, y_predicted[5], color='#50c878', label='Prediction', zorder=1)
+    predicted_value_2024 = int(round(y_predicted[8]))  # Predicted value for 2024 (index 5)
+    plt.scatter(2024, y_predicted[8], color='#50c878', label='Prediction', zorder=1)
     plt.plot(x_future, y_predicted, color='#50c878', linewidth=2, zorder=1)
 
     plt.xlabel('Year', fontsize=12)
@@ -70,8 +70,8 @@ def plot_linear_regression(x, y, items):
 
     plt.annotate(
         f'Prediction 2024: {predicted_value_2024}',
-        xy=(2024, y_predicted[5]),
-        xytext=(2024, y_predicted[5]),  # Adjusted y-coordinate for the text
+        xy=(2024, y_predicted[8]),
+        xytext=(2024, y_predicted[8]),  # Adjusted y-coordinate for the text
         fontsize=10,  # Adjust the font size
         ha='center',
         va='bottom',  # Adjust the vertical alignment of the text
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     st.sidebar.markdown(logo, unsafe_allow_html=True)
 
     with st.sidebar:
-        choose = option_menu(" ‎ ‎ ‎Systemvetenskap", ["Beskrivning", "Om ConsultIT", "Om datasetet", "Kontakt"],
+        choose = option_menu(" ‎ ‎ ‎Systemvetenskap", ["Beskrivning", "Om ConsultIT", "Om API:erna", "Kontakt"],
                              icons=['book', 'app-indicator', 'gear', 'telephone'],
                              menu_icon="none", default_index=0,
                              styles={
@@ -106,21 +106,22 @@ if __name__ == "__main__":
                              })
 
         if choose == 'Beskrivning':
-            st.markdown("<hr>", unsafe_allow_html=True)
-            st.write('Applikationen visar de emergent technologies som efterfrågas på arbetsmarknaden från år 2019 till 2023. Applikationen syfte är att agera som hjälpmedel för programansvarig på systemvetenskapliga program på universitet att enklare anpassa utbudet på de valbara kurserna som erbjuds till studenter. Med hjälp av linjediagram kan användaren få en överblick om trendutveckling och se prognos för kommande år.')
-            st.markdown("<hr>", unsafe_allow_html=True)
+            st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
+            st.write('<span style="font-size:14px">Applikationen visar de emergent technologies som efterfrågas på arbetsmarknaden från år 2016 till 2023. Applikationen syfte är att agera som hjälpmedel för programansvarig på systemvetenskapliga program på universitet att enklare anpassa utbudet på de valbara kurserna som erbjuds till studenter. Med hjälp av linjediagram kan användaren få en överblick om trendutveckling och se prognos för kommande år.</span>', unsafe_allow_html=True)
+            st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
         elif choose == 'Om ConsultIT':
-            st.markdown("<hr>", unsafe_allow_html=True)
-            st.write('Vi är en konsultfirma specialiserad på att stödja universitet och högre utbildningsinstitutioner. Med vår erfarenhet och djupa förståelse för utmaningarna inom den akademiska världen erbjuder vi skräddarsydda lösningar och expertis för att hjälpa universitet att nå sina strategiska mål')
-            st.markdown("<hr>", unsafe_allow_html=True)
-        elif choose == 'Om datasetet':
-            st.markdown("<hr>", unsafe_allow_html=True)
-            st.write('Applikationen använder data från källan https://jobtechdev.se, specifikt dataseten "Historiska annonser" och "JobSearch Trends", för att genomföra en noggrann analys. Dessa dataset ger både historiska och aktuella jobbannonser, vilket möjliggör en relevant analys. Datan sträcker sig från år 2019 till 2023.')
-            st.markdown("<hr>", unsafe_allow_html=True)
+            st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
+            st.write('<span style="font-size:14px">Vi är en konsultfirma specialiserad på att stödja universitet och högre utbildningsinstitutioner. Med vår erfarenhet och djupa förståelse för utmaningarna inom den akademiska världen erbjuder vi skräddarsydda lösningar och expertis för att hjälpa universitet att nå sina strategiska mål.</span>', unsafe_allow_html=True)
+            st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
+        elif choose == 'Om API:erna':
+            st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
+            st.write('<span style="font-size:14px">Applikationen använder data från källan https://jobtechdev.se, specifikt dataseten "Historiska annonser" och "JobSearch Trends", för att genomföra en noggrann analys. Dessa dataset ger både historiska och aktuella jobbannonser, vilket möjliggör en relevant analys. Datan sträcker sig från år 2016 till 2023.</span>', unsafe_allow_html=True)
+            st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
         elif choose == 'Kontakt':
-            st.markdown("<hr>", unsafe_allow_html=True)
-            st.write('Kontakta oss på consultIT@outlook.com')
-            st.markdown("<hr>", unsafe_allow_html=True)
+            st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
+            st.write('<span style="font-size:14px">Kontakta oss på info@consultit.com</span>', unsafe_allow_html=True)
+            st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
+
 
 
 button_styles = f'''
@@ -203,7 +204,7 @@ import streamlit as st
 def page2():
     technology = st.session_state.technology
     hits_by_year = {}
-    for year in range(2019, 2023):
+    for year in range(2016, 2023):
         job_ads = fetch_job_ads(technology, year)
         hits = display_job_ads(job_ads)
         if hits is None:
@@ -227,100 +228,105 @@ def page2():
     st.subheader('Om ' + technology)
 
     #Vi gör såhär för varenda tech som är med i listan. Så det är en liten sammanfattning. :)
-    if technology == 'Augmented Reality':
-        st.write('Augmented reality är en ny teknologi som gör det möjligt att överlägga digitala objekt och information på den fysiska världen, vilket skapar en förstärkt synupplevelse.')
-        st.write('')
+    if technology == 'Python':
+        st.write('Python är ett populärt programmeringsspråk känt för sin enkelhet och läsbarhet. Det har en omfattande ekosystem av bibliotek och ramverk som gör det lämpligt för olika ändamål.')
 
-    elif technology == 'Virtual Reality':
-        st.write('Virtual reality är en teknologi som skapar en simulerad, datorgenererad miljö som användaren kan interagera med och uppleva som om den vore verklig.')
-        st.write('')
+    elif technology == 'C+':
+        st.write('C+ (C Plus Plus) är ett programmeringsspråk som bygger på C-språket och erbjuder funktioner för objektorienterad programmering. Det används ofta för systemprogrammering och resurskrävande applikationer.')
 
-    elif technology == 'Internet of Things':
-        st.write('Internet of Things (IoT) innebär att fysiska enheter och objekt är anslutna till internet och kan samla in och utbyta data. Det möjliggör smarta och automatiserade lösningar.')
-        st.write('')
+    elif technology == 'C++':
+        st.write('C++ är ett mångsidigt programmeringsspråk som bygger på C-språket och tillhandahåller stöd för objektorienterad programmering. Det används i en mängd olika applikationsområden.')
 
-    elif technology == 'Blockchain':
-        st.write('Blockchain är en decentraliserad och distribuerad teknik som används för att lagra och verifiera transaktioner. Den ger ökad säkerhet och transparens inom exempelvis digitala valutor och avtalsprocesser.')
-        st.write('')
+    elif technology == 'Flutter':
+        st.write('Flutter är ett ramverk utvecklat av Google för att bygga användargränssnitt för mobilapplikationer. Det använder sig av Dart-programmeringsspråket och erbjuder snabb utveckling och enkel plattformsoberoende.')
 
-    elif technology == 'Artificiell Intelligens':
-        st.write('Artificiell intelligens (AI) är en teknologi som fokuserar på att skapa datorer och system som kan utföra uppgifter som normalt kräver mänsklig intelligens. Det inkluderar områden som maskininlärning, naturlig språkbearbetning och bildigenkänning.')
-        st.write('')
+    elif technology == 'Java':
+        st.write('Java är ett kraftfullt och populärt programmeringsspråk som används för att utveckla olika typer av applikationer, inklusive webbapplikationer, mobila appar och stora system.')
 
     elif technology == 'Cloud':
-        st.write('Cloud computing är en teknik som tillåter tillgång till datalagring, beräkningsresurser och programvara över internet. Det gör det möjligt att snabbt skalas upp eller ner efter behov och undvika behovet av att hantera egna fysiska servrar.')
-        st.write('')
+        st.write('Cloud, eller molnet, är en term som används för att hänvisa till datalagring och databehandling på distans via internet. Det möjliggör skalbarhet, tillgänglighet och flexibilitet för att hantera data och köra applikationer.')
 
     elif technology == 'Web3':
-        st.write('Web3 representerar den nästa generationens webb, där decentraliserade applikationer (DApps) och blockchain-teknik används för att skapa en mer öppen, censurresistent och autonom webbmiljö.')
-        st.write('')
+        st.write('Web3 syftar på den tredje generationen av webbapplikationer där decentraliserade och blockchain-baserade teknologier används för att skapa och distribuera applikationer och tjänster.')
 
-    elif technology == 'Quantum Computing':
-        st.write('Kvantdatorer är en ny typ av datorer som använder sig av kvantmekaniska principer för att utföra beräkningar. De kan lösa komplexa problem avsevärt snabbare än traditionella datorer inom områden som kryptografi och optimering.')
-        st.write('')
+    elif technology == 'Javascript':
+        st.write('Javascript är ett populärt programmeringsspråk som används för att skapa interaktiva och dynamiska webbsidor. Det är en av de mest använda teknologierna för frontend-utveckling.')
 
-    elif technology == 'Cyber Security':
-        st.write('Cybersäkerhet omfattar teknologier, processer och metoder för att skydda datorsystem, nätverk och data mot digitala hot och attacker. Det inkluderar bland annat brandväggar, antivirusprogram, kryptering och säkerhetsprotokoll.')
-        st.write('')
+    elif technology == 'PHP':
+        st.write('PHP är ett server-side programmeringsspråk som främst används för att skapa dynamiska webbsidor och webbapplikationer. Det är en av de mest använda teknologierna för webbutveckling.')
 
-    elif technology == '5G':
-        st.write('5G är den femte generationens trådlösa kommunikationsteknik. Den ger betydligt högre hastighet, lägre fördröjning och större kapacitet än tidigare generationer av mobilnätverk, vilket möjliggör snabbare dataöverföring och stöd för en mängd nya applikationer och enheter.')
-        st.write('')
+    elif technology == 'React':
+        st.write('React är ett populärt JavaScript-baserat ramverk för att bygga användargränssnitt. Det används för att utveckla snabba och skalbara webbapplikationer med en komponentbaserad arkitektur.')
 
-    elif technology == '3D Printing':
-        st.write('3D-utskrift, eller additiv tillverkning, är en teknik som skapar fysiska objekt genom att lägga till material i lager istället för att ta bort det från ett block av material. Det möjliggör snabb prototyptillverkning, anpassade produkter och mer effektiv produktion.')
-        st.write('')
+    elif technology == 'Angular':
+        st.write('Angular är ett kraftfullt TypeScript-baserat ramverk för att bygga webbapplikationer. Det erbjuder en omfattande uppsättning verktyg och funktioner för att underlätta utveckling och underhåll av stora projekt.')
 
-    elif technology == 'Edge Computing':
-        st.write('Edge computing är en modell för datalagring och bearbetning där data hanteras nära källan istället för att skickas till en central molntjänst. Det ger snabbare responstider, minskad belastning på nätverket och möjliggör realtidsapplikationer.')
-        st.write('')
+    elif technology == 'Next.js':
+        st.write('Next.js är ett ramverk för server-side rendering och statisk webbplatsgenerering med React. Det används för att bygga snabba och SEO-vänliga webbapplikationer med enkelhet.')
+
+    elif technology == 'HTML':
+        st.write('HTML (Hypertext Markup Language) är standardmärkspråket för att skapa webbsidor och webbapplikationer. Det definierar strukturen och layouten för innehållet på en webbsida.')
+
+    elif technology == 'CSS':
+        st.write('CSS (Cascading Style Sheets) är språket som används för att definiera utseendet och layouten av webbsidor. Det används tillsammans med HTML för att styla och formatera webbplatsinnehåll.')
+
+    elif technology == 'MongoDB':
+        st.write('MongoDB är en dokumentdatabas som används för att lagra och hantera strukturerade data. Det erbjuder skalbarhet, flexibilitet och snabb dataåtkomst och används ofta inom webbutveckling och molntjänster.')
+
+    elif technology == 'SQL':
+        st.write('SQL (Structured Query Language) är ett programmeringsspråk som används för att kommunicera med och hantera relationella databaser. Det används för att hämta, infoga, uppdatera och ta bort data i databaser.')
+
+    elif technology == 'Django':
+        st.write('Django är ett Python-baserat ramverk för webbutveckling som fokuserar på snabb utveckling och enkelhet. Det erbjuder en robust uppsättning verktyg och funktioner för att bygga skalbara och säkra webbapplikationer.')
+
+    elif technology == 'Swift':
+        st.write('Swift är ett programmeringsspråk utvecklat av Apple för att skapa applikationer för iOS, macOS och andra Apple-plattformar. Det är känt för sin säkerhet, prestanda och enkelhet att använda.')
+
+    elif technology == 'Projektledning':
+        st.write('Projektledning är disciplinen att planera, organisera och styra resurserna för att slutföra ett projekt framgångsrikt. Det omfattar att definiera mål, schemaläggning, resurshantering och kommunikation.')
+
+    elif technology == 'NFT':
+        st.write('NFT (Non-Fungible Token) är en typ av digital tillgång som representerar ägandeskap eller äganderätt till ett unikt objekt eller tillgång. Det används främst inom blockchain-teknologi.')
+
+    elif technology == 'Maskininlärning':
+        st.write('Maskininlärning är en gren av artificiell intelligens som fokuserar på att utveckla algoritmer och tekniker som gör att datorer kan lära sig och fatta beslut baserat på data utan att vara explicit programmerade.')
+
+    elif technology == 'UX':
+        st.write('UX (User Experience) syftar på användarupplevelsen av en produkt eller tjänst. Det inkluderar alla interaktioner och intryck som användaren har när de använder produkten och fokuserar på att skapa en positiv och tillfredsställande upplevelse.')
+
+    elif technology == 'UI':
+        st.write('UI (User Interface) syftar på det visuella gränssnittet för en produkt eller tjänst. Det inkluderar layout, designelement och interaktiva funktioner som användaren interagerar med.')
+
+    elif technology == 'Programmering':
+        st.write('Programmering är processen att skapa och utveckla instruktioner (kod) som en dator kan följa för att utföra specifika uppgifter eller lösa problem. Det finns olika programmeringsspråk och tekniker för att skriva kod.')
+
+    elif technology == 'Git':
+        st.write('Git är ett distribuerat versionshanteringssystem som används för att spåra ändringar i källkoden under utvecklingsprocessen. Det möjliggör samarbete, spårning av ändringar och återställning av tidigare versioner.')
+
+    elif technology == 'Systemutveckling':
+        st.write('Systemutveckling syftar på processen att skapa och implementera programvara eller system för att möta specifika behov eller lösa problem. Det omfattar analys, design, implementering och testning av systemet.')
+
+    elif technology == 'Databaser':
+        st.write('Databaser är strukturerade samlingar av data som kan hanteras, lagras och åtkommas på ett organiserat sätt. De används för att lagra och hantera stora mängder data i olika applikationer och system.')
 
     elif technology == 'Big data':
-        st.write('Big data hänvisar till stora och komplexa datamängder som är för stora för att bearbetas med traditionella databearbetningsmetoder. Det handlar om att samla in, lagra, hantera och analysera data för att extrahera insikter och mönster för bättre beslutsfattande.')
-        st.write('')
+        st.write('Big data hänvisar till stora och komplexa datamängder som är för stora för att hanteras med traditionella databas- och analysverktyg. Det involverar analys av stora dataset för att få insikter och möjliga användningar.')
 
-    elif technology == 'Autonomous vehicles':
-        st.write('Autonoma fordon, eller självkörande fordon, är fordon som kan navigera och köra utan mänsklig inblandning. De använder sensorer, kameror, radarteknik och avancerade algoritmer för att upptäcka och reagera på omgivningen.')
-        st.write('')
+    elif technology == 'Visualization':
+        st.write('Visualization handlar om att presentera data och information på ett visuellt sätt för att underlätta förståelse och upptäckt av mönster. Det inkluderar användning av diagram, diagram, interaktiva kartor och andra visuella representationer.')
 
-    elif technology == 'Smart grids':
-        st.write('Smart grids är moderna elnät som använder digital teknik och kommunikationsprotokoll för att optimera distributionen och användningen av elektricitet. De möjliggör smart mätning, fjärrstyrning av enheter och bättre hantering av energiflöden.')
-        st.write('')
-
-    elif technology == 'Wearable technologies':
-        st.write('Wearable technologies refererar till tekniska enheter och datorer som kan bäras på kroppen, vanligtvis i form av smycken, kläder eller accessoarer. De används för att övervaka hälsa och fitness, ge tillgång till information eller möjliggöra interaktion med digitala system.')
-        st.write('')
-
-    elif technology == 'Nanotechnology':
-        st.write('Nanoteknik är studien och användningen av material och strukturer på nanometerskala. Den möjliggör framsteg inom olika områden som materialvetenskap, medicin, energi och elektronik genom att manipulera materialet på atomnivå.')
-        st.write('')
-
-    elif technology == 'Cognitive computing':
-        st.write('Kognitiv databehandling är en gren inom AI som syftar till att replikera mänskliga kognitiva funktioner, såsom tänkande, resonemang och problemlösning. Den använder avancerade algoritmer och modeller för att bearbeta och förstå komplexa data och mönster.')
-        st.write('')
-
-    elif technology == 'Human-computer interaction':
-        st.write('Human-computer interaction (HCI) handlar om designen och interaktionen mellan människor och datorer. Det fokuserar på att skapa användarvänliga och effektiva gränssnitt, inklusive röststyrning, gestigenkänning och naturlig användarinteraktion.')
-        st.write('')
-
-    elif technology == 'Data visualization':
-        st.write('Data visualisering innebär att presentera data på ett visuellt och lättförståeligt sätt. Det hjälper till att identifiera mönster, trender och insikter från stora datamängder genom att använda diagram, grafer, kartor och andra visuella representationer.')
-        st.write('')
-
-    elif technology == 'Analytics tool':
-        st.write('Analytics tool refererar till mjukvaruverktyg och tekniker som används för att samla in, hantera och analysera data för att extrahera insikter och fatta datadrivna beslut. Det kan inkludera verktyg för datahantering, visualisering, prediktiv analys och maskininlärning.')
-        st.write('')
+    elif technology == 'AI':
+        st.write('AI (Artificiell Intelligens) syftar på datorer och system som kan utföra uppgifter som normalt kräver mänsklig intelligens. Det involverar användning av algoritmer och maskininlärningstekniker för att möjliggöra självlärande och beslutsfattande.')
     
     else:
-        st.write('')
-
+        st.write('Beskrivning saknas för ' + technology)
 
 st.write(
     "<div style='width 800px;'>"
-    "<h1>Emerging Technologies</h1>"
-    "<p>Det här verktyget är utformat för att analysera hur utbredda framväxande teknologier är på den svenska arbetsmarknaden. Applikationen är ansluten till två olika API:er från JobTechDev. "
-    "<b>Aktiva annonser</b> är kopplat till det första API:et och visar aktuella annonser som söker kunskaper inom respektive teknologi. "
-    "När du klickar på den <b>blå knappen</b> hittar du informationen längst ner på sidan, vilket ger dig möjlighet att undersöka trender och historiska jobbannonser.</p>"
+    "<h1>Teknologier</h1>"
+    "<p>Det här verktyget är utformat för att analysera hur utbredda framväxande teknologier och kunskapsområden är på den svenska arbetsmarknaden. Applikationen är ansluten till två olika API:er från JobTechDev. "
+    "<b>Aktiva annonser</b> är kopplat till det första API:et och visar aktuella annonser som söker kunskaper inom respektive område. "
+    "När du klickar på den <b>blå knappen</b> hittar du <b>informationen längst ner på sidan</b>, vilket ger dig möjlighet att undersöka trender och historiska jobbannonser.</p>"
     "</div>",
     unsafe_allow_html=True
 )
@@ -329,7 +335,7 @@ st.write(
 st.write("""
     <div style='display: flex; align-items: center; margin-bottom: 10px; font-size: 12px;'>
         <div style='width: 30%;'>
-            <h2 class='' style="font-size:18px;">Emergent Technology</h2>
+            <h2 class='' style="font-size:18px;">Teknologier</h2>
         </div>
         <div style='width: 20%; margin-left: 5%;'>
             <h2 class='' style="font-size:18px;">Aktiva annonser</h2>
@@ -340,10 +346,11 @@ st.write("""
     </div>
 """, unsafe_allow_html=True)
 
-technologies = ['Augmented Reality', 'Virtual Reality', 'Internet of Things', 'Blockchain', 'Artificiell Intelligens',
-                'Cloud', 'Web3', 'Quantum Computing', 'Cyber Security', '5G', '3D Printing', 'Edge Computing',
-                'Big data', 'Autonomous vehicles', 'Smart grids', 'Wearable technologies', 'Nanotechnology',
-                 'Cognitive computing','Human-computer interaction', 'Data visualization', 'Analytics tool'
+technologies = ['Python', 'C+', 'C++', 'Flutter', 'Java',
+                'Cloud', 'Web3', 'Javascript', 'PHP', 'React', 'Angular', 'Next.js',
+                'HTML', 'CSS', 'MongoDB', 'SQL','Django', 'Swift',
+                'Projektledning','NFT', 'Maskininlärning', 'UX', "UI", "Programmering", "Git", "Systemutveckling", 
+                'Databaser', 'Big data', 'Visualization', 'AI'
                   ]
 
 # Create a list to store the tuples (technology, num)
