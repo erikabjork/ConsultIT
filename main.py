@@ -55,23 +55,11 @@ def plot_linear_regression(x, y, items):
     # Plot the trend line
     plt.plot(x, y, color='#f40000', label='Trendline', linewidth=2, zorder=2)
 
+    # Plot the last predicted point
     x_future = np.array(range(2016, 2025)).reshape((-1, 1))
     model = LinearRegression().fit(x, y)
     y_predicted = model.predict(x_future)
-    predicted_value_2024 = int(round(y_predicted[8])) 
- 
-
-    residuals = y - model.predict(x)
-    std_residuals = np.std(residuals)
-    upper_bound = y_predicted + 0.5 * std_residuals
-    lower_bound = y_predicted - 0.5 * std_residuals
-    
-
-    plt.plot(x_future, upper_bound, color='#50c878', linestyle='--', linewidth=1, zorder=1, label='Upper prediction')
-    plt.plot(x_future, lower_bound, color='#A91B0D', linestyle='--', linewidth=1, zorder=1, label='Lower prediction')
-    plt.fill_between(x_future.flatten(), y_predicted, upper_bound, color='#50c878', alpha=0.1, hatch='/', edgecolor='none')
-    plt.fill_between(x_future.flatten(), y_predicted, lower_bound, color='#A91B0D', alpha=0.1, hatch='\\', edgecolor='none')
-    
+    predicted_value_2024 = int(round(y_predicted[8]))  # Predicted value for 2024 (index 5)
     plt.scatter(2024, y_predicted[8], color='#50c878', label='Prediction', zorder=1)
     plt.plot(x_future, y_predicted, color='#50c878', linewidth=2, zorder=1)
 
