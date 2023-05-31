@@ -15,29 +15,33 @@ from sklearn.linear_model import LinearRegression
 # JobTech Historical API base URL
 BASE_URL = "https://dev-historical-api.jobtechdev.se"
 
+#Fething job ads with set endpoint
 def fetch_job_ads(query, year):
     endpoint = f"/search?limit=100&offset=0&q={query}&published-after={year}-01-01T00:00:00&published-before={year}-12-31T00:00:00"
     url = BASE_URL + endpoint
     response = requests.get(url)
     return response.json() if response.status_code == 200 else None
 
+# Getting hits from API
 def display_job_ads(job_ads):
     if job_ads is None:
         st.write("Error fetching job ads. Please try again.")
     else:
         total_hits = job_ads['total']['value']
-        #st.write(f"Total job ads found: {total_hits}")
         return total_hits
-    
+
+# JobTech Historical API base URL
 current = 'https://jobsearch.api.jobtechdev.se'
 current_search = f"{current}/search"
 
+#Fetching current Job ads
 def get_ads(params):
     headers = {'accept': 'application/json'}
     response = requests.get(current_search, headers=headers, params=params)
-    response.raise_for_status()  # check for http errors
+    response.raise_for_status() 
     return json.loads(response.content.decode('utf8'))
 
+#Getting hits
 def example_search_return_number_of_hits(query):
     search_params = {'q': query}
     try:
@@ -47,19 +51,42 @@ def example_search_return_number_of_hits(query):
     except (requests.HTTPError, json.JSONDecodeError) as e:
         print(f"Error retrieving number of hits for '{query}': {str(e)}")
 
+
+# Linear regression plot.
 def plot_linear_regression(x, y, items):
     plt.figure(figsize=(8, 6))
 
     plt.scatter(x, y, color='#26abff', label='Hits', zorder=3)
 
-    # Plot the trend line
+ #Linear regression model
+def plot_linear_regression(x, y, items):
+    plt.figure(figsize=(8, 6))
+
+    plt.scatter(x, y, color='#26abff', label='Hits', zorder=3)
     plt.plot(x, y, color='#f40000', label='Trendline', linewidth=2, zorder=2)
 
-    # Plot the last predicted point
+    #Year span
     x_future = np.array(range(2016, 2025)).reshape((-1, 1))
     model = LinearRegression().fit(x, y)
     y_predicted = model.predict(x_future)
-    predicted_value_2024 = int(round(y_predicted[8]))  # Predicted value for 2024 (index 5)
+    predicted_value_2024 = int(round(y_predicted[8])) 
+ 
+    #CHANGED: Upper bound and lower bound based on feedback. 
+    residuals = y - model.predict(x)
+    std_residuals = np.std(residuals)
+
+    # This was set by testing and argumenting what the variable (0.5) does and how it is visualized.
+    # By using a relatively large multiplier of 0.5, the code takes into account potential uncertainties and variations in the data.
+
+    upper_bound = y_predicted + 0.5 * std_residuals
+    lower_bound = y_predicted - 0.5 * std_residuals
+    
+
+    plt.plot(x_future, upper_bound, color='#50c878', linestyle='--', linewidth=1, zorder=1, label='Upper prediction')
+    plt.plot(x_future, lower_bound, color='#A91B0D', linestyle='--', linewidth=1, zorder=1, label='Lower prediction')
+    plt.fill_between(x_future.flatten(), y_predicted, upper_bound, color='#50c878', alpha=0.1, hatch='/', edgecolor='none')
+    plt.fill_between(x_future.flatten(), y_predicted, lower_bound, color='#A91B0D', alpha=0.1, hatch='\\', edgecolor='none')
+    
     plt.scatter(2024, y_predicted[8], color='#50c878', label='Prediction', zorder=1)
     plt.plot(x_future, y_predicted, color='#50c878', linewidth=2, zorder=1)
 
@@ -71,11 +98,11 @@ def plot_linear_regression(x, y, items):
     plt.annotate(
         f'Prediction 2024: {predicted_value_2024}',
         xy=(2024, y_predicted[8]),
-        xytext=(2024, y_predicted[8]),  # Adjusted y-coordinate for the text
-        fontsize=10,  # Adjust the font size
+        xytext=(2024, y_predicted[8]), 
+        fontsize=10, 
         ha='center',
-        va='bottom',  # Adjust the vertical alignment of the text
-        bbox=dict(boxstyle='round', facecolor='white', edgecolor='white')  # Add a white background to the annotation text
+        va='bottom',  
+        bbox=dict(boxstyle='round', facecolor='white', edgecolor='white') 
     )
 
     return plt
@@ -86,13 +113,13 @@ if __name__ == "__main__":
 
 #FRONTEND
 
-    # Add the logo image
-       # Add the logo
+    #Logo pre-set.
     logo_path = "https://www.akademiskahogtider.se/digitalAssets/818/c_818170-l_3-k_lo_gu_cen2r294c.png"
-    #logo = st.image(logo_path, use_column_width=False)
     logo = f'<img src="{logo_path}" style="position: none; top: 10px; left: 10px; width: 100px; margin-left:32%; margin-top:-30%;">'
     st.sidebar.markdown(logo, unsafe_allow_html=True)
 
+
+    #Sidebar settings and buttons.
     with st.sidebar:
         choose = option_menu(" ‎ ‎ ‎Systemvetenskap", ["Beskrivning", "Om ConsultIT", "Om API:erna", "Kontakt"],
                              icons=['book', 'app-indicator', 'gear', 'telephone'],
@@ -123,7 +150,7 @@ if __name__ == "__main__":
             st.markdown("<hr style='width:100px; height:1px; background-color:black'>", unsafe_allow_html=True)
 
 
-
+#Setting button styles
 button_styles = f'''
     color: white;
     background-color: #1cb2f5;
@@ -159,6 +186,7 @@ st.write("<style>div.row-widget.stButton > button:first-child:hover { %s }</styl
 st.write("<style>div.row-widget.stButton > button:first-child:active{ %s }</style>" % button_styles_active, unsafe_allow_html=True)
 st.write("<style>div.row-widget.stButton > button:first-child { %s }</style>" % button_styles, unsafe_allow_html=True)
 
+#Pages
 def main_2():
     current_page = st.session_state.get("current_page", "page1")
 
@@ -167,7 +195,6 @@ def main_2():
         page1()
     if current_page == "page2":
         page2()
-
 
 
 def page1():    
@@ -199,8 +226,6 @@ def page1():
     unsafe_allow_html=True
 )
 
-import streamlit as st
-
 def page2():
     technology = st.session_state.technology
     hits_by_year = {}
@@ -227,7 +252,7 @@ def page2():
 
     st.subheader('Om ' + technology)
 
-    #Vi gör såhär för varenda tech som är med i listan. Så det är en liten sammanfattning. :)
+    #If statements to provide a small summary of each technology.
     if technology == 'Python':
         st.write('Python är ett populärt programmeringsspråk känt för sin enkelhet och läsbarhet. Det har en omfattande ekosystem av bibliotek och ramverk som gör det lämpligt för olika ändamål.')
 
@@ -353,16 +378,17 @@ technologies = ['Python', 'C+', 'C++', 'Flutter', 'Java',
                 'Databaser', 'Big data', 'Visualization', 'AI'
                   ]
 
-# Create a list to store the tuples (technology, num)
+
 results = []
 
+#Main loop
 for technology in technologies:
     num = example_search_return_number_of_hits(technology)
     results.append((technology, num))
 
-# Sort the results based on the num value in descending order
 results.sort(key=lambda x: x[1], reverse=True)
 
+#The text for each tech, (technology, current api(num))
 for technology, num in results:
     co1, co2 = st.columns([1, 1])
     with co1:
@@ -379,18 +405,13 @@ for technology, num in results:
                     "<hr style='margin-top: 5px; margin-bottom: 5px;'>".format(technology, num),
                     unsafe_allow_html=True)
 
+# This is the buttons for analyzation.
     with co2:
         if st.button(label="Om {}".format(technology), key="button_{}".format(technology)):
             # Code to execute when the button is pressed
             st.session_state.current_page = 'page2'
             st.session_state.current_file = 'page2.py'
             st.session_state.technology = technology
-
-
-
-
-
-            # Perform additional actions or computations
 
 #commmitchange
 main_2()
