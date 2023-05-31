@@ -66,10 +66,10 @@ def plot_linear_regression(x, y, items):
     plt.plot(x, y, color='#f40000', label='Trendline', linewidth=2, zorder=2)
 
     #Year span
-    x_future = np.array(range(2016, 2025)).reshape((-1, 1))
+    x_future = np.array(range(2020, 2025)).reshape((-1, 1))
     model = LinearRegression().fit(x, y)
     y_predicted = model.predict(x_future)
-    predicted_value_2024 = int(round(y_predicted[8])) 
+    predicted_value_2024 = int(round(y_predicted[4])) 
  
     #CHANGED: Upper bound and lower bound based on feedback. 
     residuals = y - model.predict(x)
@@ -87,7 +87,7 @@ def plot_linear_regression(x, y, items):
     plt.fill_between(x_future.flatten(), y_predicted, upper_bound, color='#50c878', alpha=0.1, hatch='/', edgecolor='none')
     plt.fill_between(x_future.flatten(), y_predicted, lower_bound, color='#A91B0D', alpha=0.1, hatch='\\', edgecolor='none')
     
-    plt.scatter(2024, y_predicted[8], color='#50c878', label='Prediction', zorder=1)
+    plt.scatter(2024, y_predicted[4], color='#50c878', label='Prediction', zorder=1)
     plt.plot(x_future, y_predicted, color='#50c878', linewidth=2, zorder=1)
 
     plt.xlabel('Year', fontsize=12)
@@ -97,8 +97,8 @@ def plot_linear_regression(x, y, items):
 
     plt.annotate(
         f'Prediction 2024: {predicted_value_2024}',
-        xy=(2024, y_predicted[8]),
-        xytext=(2024, y_predicted[8]), 
+        xy=(2024, y_predicted[4]),
+        xytext=(2024, y_predicted[4]), 
         fontsize=10, 
         ha='center',
         va='bottom',  
