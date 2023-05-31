@@ -15,12 +15,14 @@ from sklearn.linear_model import LinearRegression
 # JobTech Historical API base URL
 BASE_URL = "https://dev-historical-api.jobtechdev.se"
 
+#Fetchig job ads from JobTechDev Endpoint
 def fetch_job_ads(query, year):
     endpoint = f"/search?limit=100&offset=0&q={query}&published-after={year}-01-01T00:00:00&published-before={year}-12-31T00:00:00"
     url = BASE_URL + endpoint
     response = requests.get(url)
     return response.json() if response.status_code == 200 else None
 
+#Getting hits
 def display_job_ads(job_ads):
     if job_ads is None:
         st.write("Error fetching job ads. Please try again.")
@@ -29,15 +31,18 @@ def display_job_ads(job_ads):
         #st.write(f"Total job ads found: {total_hits}")
         return total_hits
     
+#Current jobs api
 current = 'https://jobsearch.api.jobtechdev.se'
 current_search = f"{current}/search"
 
+#Getting jobs from current api
 def get_ads(params):
     headers = {'accept': 'application/json'}
     response = requests.get(current_search, headers=headers, params=params)
     response.raise_for_status()  # check for http errors
     return json.loads(response.content.decode('utf8'))
 
+#Getting hits
 def example_search_return_number_of_hits(query):
     search_params = {'q': query}
     try:
@@ -47,22 +52,26 @@ def example_search_return_number_of_hits(query):
     except (requests.HTTPError, json.JSONDecodeError) as e:
         print(f"Error retrieving number of hits for '{query}': {str(e)}")
 
+#Linear regression model
 def plot_linear_regression(x, y, items):
     plt.figure(figsize=(8, 6))
 
     plt.scatter(x, y, color='#26abff', label='Hits', zorder=3)
-
-    # Plot the trend line
     plt.plot(x, y, color='#f40000', label='Trendline', linewidth=2, zorder=2)
 
+    #Year span
     x_future = np.array(range(2016, 2025)).reshape((-1, 1))
     model = LinearRegression().fit(x, y)
     y_predicted = model.predict(x_future)
     predicted_value_2024 = int(round(y_predicted[8])) 
  
-
+    #Upper bound and lower bound based on feedback. 
     residuals = y - model.predict(x)
     std_residuals = np.std(residuals)
+
+    # This was set by testing and argumenting what the variable (0.5) does and how it is visualized.
+    # By using a relatively large multiplier of 0.5, the code takes into account potential uncertainties and variations in the data.
+
     upper_bound = y_predicted + 0.5 * std_residuals
     lower_bound = y_predicted - 0.5 * std_residuals
     
@@ -83,11 +92,11 @@ def plot_linear_regression(x, y, items):
     plt.annotate(
         f'Prediction 2024: {predicted_value_2024}',
         xy=(2024, y_predicted[8]),
-        xytext=(2024, y_predicted[8]),  # Adjusted y-coordinate for the text
-        fontsize=10,  # Adjust the font size
+        xytext=(2024, y_predicted[8]), 
+        fontsize=10, 
         ha='center',
-        va='bottom',  # Adjust the vertical alignment of the text
-        bbox=dict(boxstyle='round', facecolor='white', edgecolor='white')  # Add a white background to the annotation text
+        va='bottom',  
+        bbox=dict(boxstyle='round', facecolor='white', edgecolor='white') 
     )
 
     return plt
@@ -96,12 +105,11 @@ def plot_linear_regression(x, y, items):
 #Start app
 if __name__ == "__main__":
 
+
 #FRONTEND
 
-    # Add the logo image
-       # Add the logo
+    #Logo
     logo_path = "https://www.akademiskahogtider.se/digitalAssets/818/c_818170-l_3-k_lo_gu_cen2r294c.png"
-    #logo = st.image(logo_path, use_column_width=False)
     logo = f'<img src="{logo_path}" style="position: none; top: 10px; left: 10px; width: 100px; margin-left:32%; margin-top:-30%;">'
     st.sidebar.markdown(logo, unsafe_allow_html=True)
 
@@ -239,7 +247,7 @@ def page2():
 
     st.subheader('Om ' + technology)
 
-    #Vi gör såhär för varenda tech som är med i listan. Så det är en liten sammanfattning. :)
+
     if technology == 'Python':
         st.write('Python är ett populärt programmeringsspråk känt för sin enkelhet och läsbarhet. Det har en omfattande ekosystem av bibliotek och ramverk som gör det lämpligt för olika ändamål.')
 
@@ -365,14 +373,13 @@ technologies = ['Python', 'C+', 'C++', 'Flutter', 'Java',
                 'Databaser', 'Big data', 'Visualization', 'AI'
                   ]
 
-# Create a list to store the tuples (technology, num)
+
 results = []
 
 for technology in technologies:
     num = example_search_return_number_of_hits(technology)
     results.append((technology, num))
 
-# Sort the results based on the num value in descending order
 results.sort(key=lambda x: x[1], reverse=True)
 
 for technology, num in results:
@@ -393,16 +400,9 @@ for technology, num in results:
 
     with co2:
         if st.button(label="Om {}".format(technology), key="button_{}".format(technology)):
-            # Code to execute when the button is pressed
             st.session_state.current_page = 'page2'
             st.session_state.current_file = 'page2.py'
             st.session_state.technology = technology
-
-
-
-
-
-            # Perform additional actions or computations
 
 #commmitchange
 main_2()
